@@ -65,12 +65,34 @@ export class MapContainer extends React.Component {
     this.state = {
       showingInfoWindow: false,
       activeMarker: {},
-      selectedPlace: {}
+      selectedPlace: {},
+      photoDetails: []
     }
   }
 
+  getPhotoDetails = () => {
+    this.data.markers.map( (marker) => {
+      fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=210faf4ab82b8d0fdd0e13dc09080003&tags=${marker.label}&sort=interestingness-desc&privacy_filter=1&media=photos&has_geo=&per_page=10&format=json&nojsoncallback=1`)
+        .then( results => {
+          return results.json();
+        })
+        .catch(error => {
+          console.log(error)
+        }) 
+        .then( photoDetails => {
+          this.setState( state => ({
+              photoDetails: [
+                ...state.photoDetails,
+                {name: marker.label, photos: photoDetails.photos.photo} 
+              ]
+          }))
+          // console.log(this.state.photoDetails)
+        })
+    })
+  }
+
   onMarkerClick = (props, marker, e) => {
-    console.log(props, marker, e);
+    // console.log(props, marker, e);
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
@@ -79,7 +101,7 @@ export class MapContainer extends React.Component {
   }
 
   onMapClicked = (props) => {
-    console.log(props);
+    // console.log(props);
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
@@ -88,25 +110,220 @@ export class MapContainer extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.getPhotoDetails();
+  }
+
   render() {
+    const selectedPhoto = this.state.photoDetails.filter(photo => photo.name === this.state.selectedPlace.name)
     const style = {
       width: '100%',
       height: '100%'
     }
+    // MotorYoga style from snazzymaps https://snazzymaps.com/style/135866/motoryoga
+    const styles = [
+      {
+        "featureType": "administrative",
+        "elementType": "all",
+        "stylers": [
+          {
+            "saturation": "-100"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.country",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "on"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.country",
+        "elementType": "labels",
+        "stylers": [
+          {
+            "visibility": "simplified"
+          },
+          {
+            "color": "#ff8000"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.country",
+        "elementType": "labels.text",
+        "stylers": [
+          {
+            "hue": "#ff8000"
+          },
+          {
+            "visibility": "simplified"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.province",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [
+          {
+            "saturation": -100
+          },
+          {
+            "lightness": 65
+          },
+          {
+            "visibility": "simplified"
+          }
+        ]
+      },
+      {
+        "featureType": "landscape.natural.terrain",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+          {
+            "saturation": -100
+          },
+          {
+            "lightness": "50"
+          },
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [
+          {
+            "saturation": "-100"
+          },
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "simplified"
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "all",
+        "stylers": [
+          {
+            "lightness": "30"
+          },
+          {
+            "visibility": "simplified"
+          }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "elementType": "all",
+        "stylers": [
+          {
+            "lightness": "40"
+          },
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+          {
+            "saturation": -100
+          },
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+          {
+            "visibility": "on"
+          },
+          {
+            "color": "#fafafa"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "lightness": -25
+          },
+          {
+            "saturation": -97
+          },
+          {
+            "color": "#c9dbcb"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "labels",
+        "stylers": [
+          {
+            "lightness": -25
+          },
+          {
+            "saturation": -100
+          }
+        ]
+      }
+    ]
+
     return (
       <Map 
         className="map"
         style={style} 
+        styles={styles}
         google={this.props.google} 
-        zoom={14}
+        zoom={5}
         initialCenter={{
           lat: this.data.lat,
           lng: this.data.lng
         }}
-        zoom={5}
         onClick={this.onMapClicked}
       >
-        {this.data.markers.map(marker => {
+        {this.data.markers.map( marker => {
           return <Marker
           title={marker.label}
           name={marker.label}
@@ -118,14 +335,22 @@ export class MapContainer extends React.Component {
           onClick={this.onMarkerClick}
           />
         })}
+        { console.log(selectedPhoto) }
         <InfoWindow
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
         >
           <div>
             <h1>{this.state.selectedPlace.name}</h1>
+            { (selectedPhoto[0]) && 
+              <img
+              src={`https://farm${selectedPhoto[0].photos[0].farm}.staticflickr.com/${selectedPhoto[0].photos[0].server}/${selectedPhoto[0].photos[0].id}_${selectedPhoto[0].photos[0].secret}.jpg`}
+              title={'photo of' + selectedPhoto[0].name}
+              alt={'photo of' + selectedPhoto[0].name}
+              ></img>
+            }
           </div>
-        </InfoWindow>
+        </InfoWindow>  
       </Map>
     );
   }
