@@ -54,3 +54,8 @@ input {
 .map {
   width: 80% !important
 }
+
+.infoWindow{
+  min-width: 500px;
+  min-height: 350px;
+}

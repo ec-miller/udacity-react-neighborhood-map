@@ -336,12 +336,12 @@ export class MapContainer extends React.Component {
           onClick={this.onMarkerClick}
           />
         })}
-        { console.log(selectedPhoto) }
+        {/* { console.log(selectedPhoto) } */}
         <InfoWindow
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
         >
-          <div>
+          <div className="infoWindow">
             <h1>{this.state.selectedPlace.name}</h1>
             { (selectedPhoto[0]) && 
               <img
