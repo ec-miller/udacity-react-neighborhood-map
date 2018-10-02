@@ -72,7 +72,7 @@ export class MapContainer extends React.Component {
 
   getPhotoDetails = () => {
     this.data.markers.map( (marker) => {
-      fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=210faf4ab82b8d0fdd0e13dc09080003&tags=${marker.label}&sort=interestingness-desc&privacy_filter=1&media=photos&has_geo=&per_page=10&format=json&nojsoncallback=1`)
+      fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=210faf4ab82b8d0fdd0e13dc09080003&tags=${marker.label}&sort=interestingness-desc&privacy_filter=1&media=photos&has_geo=&per_page=20&format=json&nojsoncallback=1`)
         .then( results => {
           return results.json();
         })
@@ -116,6 +116,7 @@ export class MapContainer extends React.Component {
 
   render() {
     const selectedPhoto = this.state.photoDetails.filter(photo => photo.name === this.state.selectedPlace.name)
+    const randomPhoto = Math.floor(Math.random() * Math.floor(20))
     const style = {
       width: '100%',
       height: '100%'
@@ -344,8 +345,8 @@ export class MapContainer extends React.Component {
             <h1>{this.state.selectedPlace.name}</h1>
             { (selectedPhoto[0]) && 
               <img
-              src={`https://farm${selectedPhoto[0].photos[0].farm}.staticflickr.com/${selectedPhoto[0].photos[0].server}/${selectedPhoto[0].photos[0].id}_${selectedPhoto[0].photos[0].secret}.jpg`}
-              title={'photo of' + selectedPhoto[0].name}
+              src={`https://farm${selectedPhoto[0].photos[randomPhoto].farm}.staticflickr.com/${selectedPhoto[0].photos[randomPhoto].server}/${selectedPhoto[0].photos[randomPhoto].id}_${selectedPhoto[0].photos[randomPhoto].secret}.jpg`}
+              title={selectedPhoto[0].photos[0].title}
               alt={'photo of' + selectedPhoto[0].name}
               ></img>
             }
