@@ -71,23 +71,26 @@ export class MapContainer extends React.Component {
   }
 
   getPhotoDetails = () => {
-    this.data.markers.map( (marker) => {
-      fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=210faf4ab82b8d0fdd0e13dc09080003&tags=${marker.label}&sort=interestingness-desc&privacy_filter=1&media=photos&has_geo=&per_page=20&format=json&nojsoncallback=1`)
+    this.data.markers.forEach( (marker) => {
+      fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0c0162b8a07a500a529e6ed1faf1b191&tags=${marker.label}&sort=interestingness-desc&privacy_filter=1&media=photos&has_geo=&per_page=20&format=json&nojsoncallback=1`)
         .then( results => {
           return results.json();
+        })
+        .then( photoDetails => {
+          if (photoDetails.stat === 'ok') {
+            this.setState(state => ({
+              photoDetails: [
+                ...state.photoDetails,
+                { name: marker.label, photos: photoDetails.photos.photo }
+              ]
+            }))
+          } else {
+            console.log('Error: Unable to pull photos via Flickr API',photoDetails.code,photoDetails.message)
+          }
         })
         .catch(error => {
           console.log(error)
         }) 
-        .then( photoDetails => {
-          this.setState( state => ({
-              photoDetails: [
-                ...state.photoDetails,
-                {name: marker.label, photos: photoDetails.photos.photo} 
-              ]
-          }))
-          // console.log(this.state.photoDetails)
-        })
     })
   }
 
