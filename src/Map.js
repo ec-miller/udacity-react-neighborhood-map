@@ -2,73 +2,70 @@ import React from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react' //package for using Maps in React projects https://www.npmjs.com/package/google-maps-react
 
 export class MapContainer extends React.Component {
-  constructor() {
-    super()
-    this.key ='AIzaSyABpmKqdKmqcu7iEZ-JE0r5CgxqFljQsmY'
-    this.data = {
-      name: 'European Places of Interest',
-      lat: 49.815273,
-      lng: 6.129582999999999,
-      markers: [
-        {
-          lat: 42.65066059999999,
-          lng: 18.0944238,
-          label: 'Dubrovnik, Croatia'
-        },
-        {
-          lat: 53.348155,
-          lng: -6.256794999999999,
-          label: 'Dublin, Ireland'
-        },
-        {
-          lat: 46.5734348,
-          lng: 11.6742025,
-          label: 'St. Ulrich, Italy'
-        },
-        {
-          lat: 67.8557995,
-          lng: 20.225282,
-          label: 'Kiruna, Sweden'
-        },
-        {
-          lat: 52.3679843,
-          lng: 4.9035614,
-          label: 'Amsterdam, The Netherlands'
-        },
-        {
-          lat: 52.52000659999999,
-          lng: 13.404954,
-          label: 'Berlin, Germany'
-        },
-        {
-          lat: 47.4916945,
-          lng: 11.0954984,
-          label: 'Garmische-Partenkirchen, Germany'
-        },
-        {
-          lat: 55.6760968,
-          lng: 12.5683372,
-          label: 'Copenhagen, Denmark'
-        },
-        {
-          lat: 48.856614,
-          lng: 2.3522219,
-          label: 'Paris, France'
-        },
-        {
-          lat: 41.9027835,
-          lng: 12.4963655,
-          label: 'Rome, Italy'
-        }
-      ]
-    }
-    this.state = {
-      showingInfoWindow: false,
-      activeMarker: {},
-      selectedPlace: {},
-      photoDetails: []
-    }
+  key = 'AIzaSyABpmKqdKmqcu7iEZ-JE0r5CgxqFljQsmY'
+  data = {
+    name: 'European Places of Interest',
+    lat: 49.815273,
+    lng: 6.129582999999999,
+    markers: [
+      {
+        lat: 42.65066059999999,
+        lng: 18.0944238,
+        label: 'Dubrovnik, Croatia'
+      },
+      {
+        lat: 53.348155,
+        lng: -6.256794999999999,
+        label: 'Dublin, Ireland'
+      },
+      {
+        lat: 46.5734348,
+        lng: 11.6742025,
+        label: 'St. Ulrich, Italy'
+      },
+      {
+        lat: 67.8557995,
+        lng: 20.225282,
+        label: 'Kiruna, Sweden'
+      },
+      {
+        lat: 52.3679843,
+        lng: 4.9035614,
+        label: 'Amsterdam, The Netherlands'
+      },
+      {
+        lat: 52.52000659999999,
+        lng: 13.404954,
+        label: 'Berlin, Germany'
+      },
+      {
+        lat: 47.4916945,
+        lng: 11.0954984,
+        label: 'Garmische-Partenkirchen, Germany'
+      },
+      {
+        lat: 55.6760968,
+        lng: 12.5683372,
+        label: 'Copenhagen, Denmark'
+      },
+      {
+        lat: 48.856614,
+        lng: 2.3522219,
+        label: 'Paris, France'
+      },
+      {
+        lat: 41.9027835,
+        lng: 12.4963655,
+        label: 'Rome, Italy'
+      }
+    ]
   }
+  state = {
+    showingInfoWindow: false,
+    activeMarker: {},
+    selectedPlace: {},
+    photoDetails: []
+  }  
 
   getPhotoDetails = () => {
     this.data.markers.forEach( (marker) => {
