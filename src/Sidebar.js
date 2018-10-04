@@ -40,7 +40,7 @@ class Sidebar extends React.Component {
         </header>
         <form>
           <input type="text" name="search" placeholder="Search for Places" 
-            value={this.state.searchTerm} 
+            value={searchTerm} 
             onChange={ (event) => this.updateSearch(event.target.value)} 
           />  
         </form> 
