@@ -17,14 +17,6 @@ class Sidebar extends React.Component {
 
   render() {
     const { cities }=this.props
-    const styles = theme => ({
-      root: {
-        width: '100%',
-        backgroundColor: 'black',
-        maxHeight: '100%',
-        overflow: 'auto'
-      }
-    })
     const searchTerm = this.state.searchTerm
     const searchRegex = RegExp(searchTerm,'i')
     let searchCities
@@ -36,17 +28,17 @@ class Sidebar extends React.Component {
 
     return (
       <div className="Sidebar">
-        <header className="App-header">
+        <header className="App-header" style={{ height: '20%' }}>
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Eric's European Adventures</h1>
         </header>
-        <form>
+        <form style={{ height: '10%' }}>
           <input type="text" name="search" placeholder="Search for Places" 
             value={searchTerm || ''} 
             onChange={ (event) => this.updateSearch(event.target.value)} 
           />  
         </form> 
-        <div className={styles.root}>
+        <div style={{ minHeight: '60%', maxHeight: '65%', overflow: 'auto' }}>
           <List component="nav">
             {searchTerm && console.log(searchTerm)}
             {searchCities.map( city => {
