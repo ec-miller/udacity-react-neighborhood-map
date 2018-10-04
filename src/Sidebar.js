@@ -7,6 +7,14 @@ import ListItemText from '@material-ui/core/ListItemText'
 import CheckIcon from '@material-ui/icons/Check'
 
 class Sidebar extends React.Component {
+  state = {
+    seachTerm: ''
+  }
+
+  updateSearch = (searchTerm) => {
+    this.setState({ searchTerm: searchTerm })
+  }
+
   render() {
     const { cities }=this.props
     const styles = theme => ({
@@ -15,6 +23,14 @@ class Sidebar extends React.Component {
         backgroundColor: 'black'
       }
     })
+    const searchTerm = this.state.searchTerm
+    const searchRegex = RegExp(searchTerm,'i')
+    let searchCities
+    if (searchTerm) {
+      searchCities = cities.filter( city => searchRegex.test(city) )
+    } else {
+      searchCities = cities;
+    }
 
     return (
       <div className="Sidebar">
@@ -23,11 +39,15 @@ class Sidebar extends React.Component {
           <h1 className="App-title">Eric's European Adventures</h1>
         </header>
         <form>
-          <input type="text" name="search" placeholder="Search for Places"></input>  
+          <input type="text" name="search" placeholder="Search for Places" 
+            value={this.state.searchTerm} 
+            onChange={ (event) => this.updateSearch(event.target.value)} 
+          />  
         </form> 
         <div className={styles.root}>
           <List component="nav">
-            {cities.map( city => {
+            {searchTerm && console.log(searchTerm)}
+            {searchCities.map( city => {
               return <ListItem divider button key={city}>
                 <ListItemText primary={city} />
                 <ListItemIcon>
