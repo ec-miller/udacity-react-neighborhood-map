@@ -20,7 +20,9 @@ class Sidebar extends React.Component {
     const styles = theme => ({
       root: {
         width: '100%',
-        backgroundColor: 'black'
+        backgroundColor: 'black',
+        maxHeight: '100%',
+        overflow: 'auto'
       }
     })
     const searchTerm = this.state.searchTerm
@@ -40,7 +42,7 @@ class Sidebar extends React.Component {
         </header>
         <form>
           <input type="text" name="search" placeholder="Search for Places" 
-            value={searchTerm} 
+            value={searchTerm || ''} 
             onChange={ (event) => this.updateSearch(event.target.value)} 
           />  
         </form> 
