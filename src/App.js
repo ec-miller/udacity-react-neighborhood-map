@@ -10,7 +10,12 @@ class App extends Component {
       'Copenhagen, Denmark', 'Paris, France', 'Rome, Italy'],
     showingInfoWindow: false,
     activeMarker: {},
-    selectedPlace: {}
+    selectedPlace: {},
+    seachTerm: ''
+  }
+
+  updateSearch = (searchTerm) => {
+    this.setState({ searchTerm: searchTerm })
   }
 
   onMarkerClick = (props, marker) => {
@@ -36,12 +41,15 @@ class App extends Component {
     const showingInfoWindow = this.state.showingInfoWindow
     const activeMarker = this.state.activeMarker
     const selectedPlace = this.state.selectedPlace
+    const searchTerm = this.state.searchTerm
 
     return (
       <div className="App">
         <Sidebar 
           cities={cities}
-          
+          searchTerm={searchTerm}
+          updateSearch={this.updateSearch}
+          onMarkerClick={this.onMarkerClick}
         />
         <Map 
           showingInfoWindow={showingInfoWindow}
@@ -49,6 +57,7 @@ class App extends Component {
           selectedPlace={selectedPlace}
           onMarkerClick={this.onMarkerClick}
           onMapClicked={this.onMapClicked}
+          searchTerm={searchTerm}
         />
       </div>
     );

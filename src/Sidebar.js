@@ -7,17 +7,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 import CheckIcon from '@material-ui/icons/Check'
 
 class Sidebar extends React.Component {
-  state = {
-    seachTerm: ''
-  }
-
-  updateSearch = (searchTerm) => {
-    this.setState({ searchTerm: searchTerm })
-  }
-
   render() {
-    const { cities }=this.props
-    const searchTerm = this.state.searchTerm
+    const { cities, onMarkerClick, searchTerm, updateSearch }=this.props
     const searchRegex = RegExp(searchTerm,'i')
     let searchCities
     if (searchTerm) {
@@ -35,14 +26,14 @@ class Sidebar extends React.Component {
         <form style={{ height: '10%' }}>
           <input type="text" name="search" placeholder="Search for Places" 
             value={searchTerm || ''} 
-            onChange={ (event) => this.updateSearch(event.target.value)} 
+            onChange={ (event) => updateSearch(event.target.value)} 
           />  
         </form> 
         <div style={{ minHeight: '60%', maxHeight: '65%', overflow: 'auto' }}>
           <List component="nav">
             {searchTerm && console.log(searchTerm)}
             {searchCities.map( city => {
-              return <ListItem divider button key={city}>
+              return <ListItem divider button key={city} name={city} onClick={(event) => console.log(event.target,event.target.key,event.target.name,event.target.innerHTML)}>
                 <ListItemText primary={city} />
                 <ListItemIcon>
                   <CheckIcon />

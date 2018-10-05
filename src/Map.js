@@ -95,9 +95,18 @@ export class MapContainer extends React.Component {
   }
 
   render() {
-    const { showingInfoWindow, activeMarker, selectedPlace, onMarkerClick, onMapClicked } = this.props
+    const { showingInfoWindow, activeMarker, selectedPlace, onMarkerClick, onMapClicked, searchTerm } = this.props
     const selectedPhoto = this.state.photoDetails.filter(photo => photo.name === selectedPlace.name)
     const randomPhoto = Math.floor(Math.random() * Math.floor(20))
+    const allMarkers = this.data.markers
+    const searchRegex = RegExp(searchTerm, 'i')
+    let markers
+    if (searchTerm) {
+      markers = allMarkers.filter(marker => searchRegex.test(marker.label))
+    } else {
+      markers = allMarkers;
+    }
+
     const style = {
       width: '100%',
       height: '100%'
@@ -305,7 +314,7 @@ export class MapContainer extends React.Component {
         }}
         onClick={onMapClicked}
       >
-        {this.data.markers.map( marker => {
+        {markers.map( marker => {
           return <Marker
           title={marker.label}
           name={marker.label}
