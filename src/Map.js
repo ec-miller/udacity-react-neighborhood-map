@@ -61,9 +61,6 @@ export class MapContainer extends React.Component {
     ]
   }
   state = {
-    showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {},
     photoDetails: []
   }  
 
@@ -91,31 +88,15 @@ export class MapContainer extends React.Component {
     })
   }
 
-  onMarkerClick = (props, marker, e) => {
-    // console.log(props, marker, e);
-    this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
-      showingInfoWindow: true
-    });
-  }
-
-  onMapClicked = (props) => {
-    // console.log(props);
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      })
-    }
-  }
+ 
 
   componentDidMount() {
     this.getPhotoDetails();
   }
 
   render() {
-    const selectedPhoto = this.state.photoDetails.filter(photo => photo.name === this.state.selectedPlace.name)
+    const { showingInfoWindow, activeMarker, selectedPlace, onMarkerClick, onMapClicked } = this.props
+    const selectedPhoto = this.state.photoDetails.filter(photo => photo.name === selectedPlace.name)
     const randomPhoto = Math.floor(Math.random() * Math.floor(20))
     const style = {
       width: '100%',
@@ -322,7 +303,7 @@ export class MapContainer extends React.Component {
           lat: this.data.lat,
           lng: this.data.lng
         }}
-        onClick={this.onMapClicked}
+        onClick={onMapClicked}
       >
         {this.data.markers.map( marker => {
           return <Marker
@@ -333,16 +314,16 @@ export class MapContainer extends React.Component {
             lat: marker.lat,
             lng: marker.lng
           }}
-          onClick={this.onMarkerClick}
+          onClick={onMarkerClick}
           />
         })}
         {/* { console.log(selectedPhoto) } */}
         <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
+          marker={activeMarker}
+          visible={showingInfoWindow}
         >
           <div className="infoWindow">
-            <h1>{this.state.selectedPlace.name}</h1>
+            <h1>{selectedPlace.name}</h1>
             { (selectedPhoto[0]) && 
               <img
               src={`https://farm${selectedPhoto[0].photos[randomPhoto].farm}.staticflickr.com/${selectedPhoto[0].photos[randomPhoto].server}/${selectedPhoto[0].photos[randomPhoto].id}_${selectedPhoto[0].photos[randomPhoto].secret}.jpg`}
