@@ -31,7 +31,6 @@ class Sidebar extends React.Component {
         </form> 
         <div style={{ minHeight: '60%', maxHeight: '65%', overflow: 'auto' }}>
           <List component="nav">
-            {searchTerm && console.log(searchTerm)}
             {searchCities.map( city => {
               return <ListItem divider button key={city} name={city} onClick={(event) => console.log(event.target,event.target.key,event.target.name,event.target.innerHTML)}>
                 <ListItemText primary={city} />
