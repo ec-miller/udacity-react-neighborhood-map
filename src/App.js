@@ -71,18 +71,25 @@ class App extends Component {
   }
 
   onMarkerClick = (props) => {
-    console.log(props);
     this.setState({
       selectedPlace: props,
       showingInfoWindow: true
     });
   }
 
-  onListClick = (props, marker) => {
-    console.log(props, marker);
+  onListClick = (city) => {
+    const getMarker = this.markersList.filter( (marker) => marker.label === city)
+    console.log(getMarker)
+    const selectedPlace = {
+      name: city,
+      position: {
+        lat: getMarker[0].lat,
+        lng: getMarker[0].lng
+      }
+    }
+    console.log(selectedPlace)
     this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
+      selectedPlace: selectedPlace,
       showingInfoWindow: true
     });
   }
@@ -108,7 +115,7 @@ class App extends Component {
           cities={cities}
           searchTerm={searchTerm}
           updateSearch={this.updateSearch}
-          onMarkerClick={this.onMarkerClick}
+          onListClick={this.onListClick}
         />
         <Map 
           markersList={this.markersList}

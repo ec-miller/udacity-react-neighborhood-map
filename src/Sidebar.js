@@ -8,7 +8,7 @@ import CheckIcon from '@material-ui/icons/Check'
 
 class Sidebar extends React.Component {
   render() {
-    const { cities, onMarkerClick, searchTerm, updateSearch }=this.props
+    const { cities, onListClick, searchTerm, updateSearch }=this.props
     const searchRegex = RegExp(searchTerm,'i')
     let searchCities
     if (searchTerm) {
@@ -34,7 +34,7 @@ class Sidebar extends React.Component {
             {searchCities.map( city => {
               return <ListItem divider button className='clickMe' 
                   key={city} id={city} 
-                  onClick={(event) => console.log(event.target,event.target.id)}>
+                  onClick={ (event) => { onListClick(event.target.id) }}>
                 <ListItemText primary={city} />
                 <ListItemIcon id={city}>
                   <CheckIcon />
