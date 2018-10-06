@@ -46,6 +46,10 @@ input {
   /* height: 100%; */
 }
 
+div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
+  pointer-events: none;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

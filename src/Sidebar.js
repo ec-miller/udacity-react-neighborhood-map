@@ -32,9 +32,11 @@ class Sidebar extends React.Component {
         <div style={{ minHeight: '60%', maxHeight: '65%', overflow: 'auto' }}>
           <List component="nav">
             {searchCities.map( city => {
-              return <ListItem divider button key={city} name={city} onClick={(event) => console.log(event.target,event.target.key,event.target.name,event.target.innerHTML)}>
+              return <ListItem divider button className='clickMe' 
+                  key={city} id={city} 
+                  onClick={(event) => console.log(event.target,event.target.id)}>
                 <ListItemText primary={city} />
-                <ListItemIcon>
+                <ListItemIcon id={city}>
                   <CheckIcon />
                 </ListItemIcon> 
               </ListItem>
