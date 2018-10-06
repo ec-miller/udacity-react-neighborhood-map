@@ -79,7 +79,6 @@ class App extends Component {
 
   onListClick = (city) => {
     const getMarker = this.markersList.filter( (marker) => marker.label === city)
-    console.log(getMarker)
     const selectedPlace = {
       name: city,
       position: {
@@ -87,7 +86,6 @@ class App extends Component {
         lng: getMarker[0].lng
       }
     }
-    console.log(selectedPlace)
     this.setState({
       selectedPlace: selectedPlace,
       showingInfoWindow: true
