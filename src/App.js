@@ -9,7 +9,6 @@ class App extends Component {
       'Amsterdam, The Netherlands', 'Berlin, Germany', 'Garmische-Partenkirchen, Germany',
       'Copenhagen, Denmark', 'Paris, France', 'Rome, Italy'],
     showingInfoWindow: false,
-    activeMarker: {},
     selectedPlace: {},
     seachTerm: ''
   }
@@ -71,7 +70,15 @@ class App extends Component {
     this.setState({ searchTerm: searchTerm })
   }
 
-  onMarkerClick = (props, marker) => {
+  onMarkerClick = (props) => {
+    console.log(props);
+    this.setState({
+      selectedPlace: props,
+      showingInfoWindow: true
+    });
+  }
+
+  onListClick = (props, marker) => {
     console.log(props, marker);
     this.setState({
       selectedPlace: props,
@@ -92,7 +99,6 @@ class App extends Component {
   render() {
     const cities = this.state.cities
     const showingInfoWindow = this.state.showingInfoWindow
-    const activeMarker = this.state.activeMarker
     const selectedPlace = this.state.selectedPlace
     const searchTerm = this.state.searchTerm
 
@@ -107,7 +113,6 @@ class App extends Component {
         <Map 
           markersList={this.markersList}
           showingInfoWindow={showingInfoWindow}
-          activeMarker={activeMarker}
           selectedPlace={selectedPlace}
           onMarkerClick={this.onMarkerClick}
           onMapClicked={this.onMapClicked}
