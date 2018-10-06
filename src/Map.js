@@ -7,65 +7,13 @@ export class MapContainer extends React.Component {
     name: 'European Places of Interest',
     lat: 49.815273,
     lng: 6.129582999999999,
-    markers: [
-      {
-        lat: 42.65066059999999,
-        lng: 18.0944238,
-        label: 'Dubrovnik, Croatia'
-      },
-      {
-        lat: 53.348155,
-        lng: -6.256794999999999,
-        label: 'Dublin, Ireland'
-      },
-      {
-        lat: 46.5734348,
-        lng: 11.6742025,
-        label: 'St. Ulrich, Italy'
-      },
-      {
-        lat: 67.8557995,
-        lng: 20.225282,
-        label: 'Kiruna, Sweden'
-      },
-      {
-        lat: 52.3679843,
-        lng: 4.9035614,
-        label: 'Amsterdam, The Netherlands'
-      },
-      {
-        lat: 52.52000659999999,
-        lng: 13.404954,
-        label: 'Berlin, Germany'
-      },
-      {
-        lat: 47.4916945,
-        lng: 11.0954984,
-        label: 'Garmische-Partenkirchen, Germany'
-      },
-      {
-        lat: 55.6760968,
-        lng: 12.5683372,
-        label: 'Copenhagen, Denmark'
-      },
-      {
-        lat: 48.856614,
-        lng: 2.3522219,
-        label: 'Paris, France'
-      },
-      {
-        lat: 41.9027835,
-        lng: 12.4963655,
-        label: 'Rome, Italy'
-      }
-    ]
   }
   state = {
     photoDetails: []
   }  
 
   getPhotoDetails = () => {
-    this.data.markers.forEach( (marker) => {
+    this.props.markersList.forEach( (marker) => {
       fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0c0162b8a07a500a529e6ed1faf1b191&tags=${marker.label}&sort=interestingness-desc&privacy_filter=1&media=photos&has_geo=&per_page=20&format=json&nojsoncallback=1`)
         .then( results => {
           return results.json();
@@ -95,16 +43,15 @@ export class MapContainer extends React.Component {
   }
 
   render() {
-    const { showingInfoWindow, activeMarker, selectedPlace, onMarkerClick, onMapClicked, searchTerm } = this.props
+    const { showingInfoWindow, markersList, selectedPlace, onMarkerClick, onMapClicked, searchTerm } = this.props
     const selectedPhoto = this.state.photoDetails.filter(photo => photo.name === selectedPlace.name)
     const randomPhoto = Math.floor(Math.random() * Math.floor(20))
-    const allMarkers = this.data.markers
     const searchRegex = RegExp(searchTerm, 'i')
     let markers
     if (searchTerm) {
-      markers = allMarkers.filter(marker => searchRegex.test(marker.label))
+      markers = markersList.filter(marker => searchRegex.test(marker.label))
     } else {
-      markers = allMarkers;
+      markers = markersList;
     }
 
     const style = {
@@ -328,7 +275,8 @@ export class MapContainer extends React.Component {
         })}
         {/* { console.log(selectedPhoto) } */}
         <InfoWindow
-          marker={activeMarker}
+          position={selectedPlace.position}
+          pixelOffset={ new window.google.maps.Size(0,-40) }
           visible={showingInfoWindow}
         >
           <div className="infoWindow">
