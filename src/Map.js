@@ -36,8 +36,6 @@ export class MapContainer extends React.Component {
     })
   }
 
-
-
   componentDidMount() {
     this.getPhotoDetails();
   }
@@ -273,7 +271,6 @@ export class MapContainer extends React.Component {
           onClick={onMarkerClick}
           />
         })}
-        {/* { console.log(selectedPlace) } */}
         <InfoWindow
           position={selectedPlace.position}
           pixelOffset={ new window.google.maps.Size(0,-40) }
