@@ -96,9 +96,7 @@ class App extends Component {
 
   onMapClicked = () => {
     if (this.state.showingInfoWindow) {
-      console.log('your mom')
       this.setState({ showingInfoWindow: false })
-      console.log('wtf')
     }
   }
 
