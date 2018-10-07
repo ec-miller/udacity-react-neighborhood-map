@@ -90,14 +90,14 @@ class App extends Component {
       selectedPlace: selectedPlace,
       showingInfoWindow: true
     });
+    this.forceUpdate();
   }
 
   onMapClicked = () => {
     if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      })
+      console.log('your mom')
+      this.setState({ showingInfoWindow: false })
+      console.log('wtf')
     }
   }
 
@@ -114,6 +114,7 @@ class App extends Component {
           searchTerm={searchTerm}
           updateSearch={this.updateSearch}
           onListClick={this.onListClick}
+          onMapClicked={this.onMapClicked}
         />
         <Map 
           markersList={this.markersList}

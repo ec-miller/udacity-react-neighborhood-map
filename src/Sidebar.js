@@ -11,8 +11,15 @@ class Sidebar extends React.Component {
     selectedListItem: ''
   }
 
-  updateListSelection = (selecteListItem) => {
-    this.setState({ selecteListItem })
+  updateListSelection = (selectedListItem) => {
+    if (this.state.selectedListItem === selectedListItem) {
+      this.setState({ selectedListItem: '' });
+      this.props.onMapClicked();
+    } else {
+      this.setState({ selectedListItem });
+      this.props.onListClick(selectedListItem);
+    }
+    
   }
 
   render() {
@@ -45,7 +52,6 @@ class Sidebar extends React.Component {
                   key={city} id={city} 
                   onClick={ (event) => { 
                     this.updateListSelection(event.target.id)
-                    onListClick(event.target.id) 
                   }}
                   selected={ selectedListItem === city }
                   >
