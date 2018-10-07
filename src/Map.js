@@ -41,7 +41,7 @@ export class MapContainer extends React.Component {
   }
 
   render() {
-    const { showingInfoWindow, markersList, selectedPlace, onMarkerClick, onMapClicked, searchTerm } = this.props
+    const { showingInfoWindow, markersList, selectedPlace, onMarkerClick, onMapClicked, searchTerm, updateListSelection } = this.props
     const selectedPhoto = this.state.photoDetails.filter(photo => photo.name === selectedPlace.name)
     const randomPhoto = Math.floor(Math.random() * Math.floor(20))
     const searchRegex = RegExp(searchTerm, 'i')
@@ -268,7 +268,10 @@ export class MapContainer extends React.Component {
             lat: marker.lat,
             lng: marker.lng
           }}
-          onClick={onMarkerClick}
+          onClick={ (event) => {
+            console.log(event.name)
+            updateListSelection(event.name); 
+          }}
           />
         })}
         <InfoWindow
