@@ -7,24 +7,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 import CheckIcon from '@material-ui/icons/Check'
 
 class Sidebar extends React.Component {
-  state = {
-    selectedListItem: ''
-  }
-
-  updateListSelection = (selectedListItem) => {
-    if (this.state.selectedListItem === selectedListItem) {
-      this.setState({ selectedListItem: '' });
-      this.props.onMapClicked();
-    } else {
-      this.setState({ selectedListItem });
-      this.props.onListClick(selectedListItem);
-    }
-    
-  }
-
   render() {
-    const { cities, onListClick, searchTerm, updateSearch } = this.props
-    const selectedListItem = this.state.selectedListItem
+    const { cities, searchTerm, updateSearch, selectedListItem, updateListSelection } = this.props
     const searchRegex = RegExp(searchTerm,'i')
     let searchCities
     if (searchTerm) {
@@ -51,7 +35,7 @@ class Sidebar extends React.Component {
               return <ListItem divider button className='clickMe' 
                   key={city} id={city} 
                   onClick={ (event) => { 
-                    this.updateListSelection(event.target.id)
+                    updateListSelection(event.target.id)
                   }}
                   selected={ selectedListItem === city }
                   >

@@ -10,7 +10,8 @@ class App extends Component {
       'Copenhagen, Denmark', 'Paris, France', 'Rome, Italy'],
     showingInfoWindow: false,
     selectedPlace: {},
-    seachTerm: ''
+    seachTerm: '',
+    selectedListItem: ''
   }
 
   markersList = [
@@ -101,11 +102,22 @@ class App extends Component {
     }
   }
 
+  updateListSelection = (selectedListItem) => {
+    if (this.state.selectedListItem === selectedListItem) {
+      this.setState({ selectedListItem: '' });
+      this.onMapClicked();
+    } else {
+      this.setState({ selectedListItem });
+      this.onListClick(selectedListItem);
+    }
+  }
+
   render() {
     const cities = this.state.cities
     const showingInfoWindow = this.state.showingInfoWindow
     const selectedPlace = this.state.selectedPlace
     const searchTerm = this.state.searchTerm
+    const selectedListItem = this.state.selectedListItem
 
     return (
       <div className="App">
@@ -113,13 +125,14 @@ class App extends Component {
           cities={cities}
           searchTerm={searchTerm}
           updateSearch={this.updateSearch}
-          onListClick={this.onListClick}
-          onMapClicked={this.onMapClicked}
+          selectedListItem={selectedListItem}
+          updateListSelection={this.updateListSelection}
         />
         <Map 
           markersList={this.markersList}
           showingInfoWindow={showingInfoWindow}
           selectedPlace={selectedPlace}
+          updateListSelection={this.updateListSelection}
           onMarkerClick={this.onMarkerClick}
           onMapClicked={this.onMapClicked}
           searchTerm={searchTerm}
