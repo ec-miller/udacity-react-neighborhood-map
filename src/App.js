@@ -89,7 +89,10 @@ class App extends Component {
 
   onMapClicked = () => {
     if (this.state.showingInfoWindow) {
-      this.setState({ showingInfoWindow: false })
+      this.setState({ 
+        showingInfoWindow: false, 
+        selectedListItem: ''
+      })
     };
     this.closeMobileMenu();
   }

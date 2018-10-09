@@ -8,6 +8,7 @@
 
 .Sidebar {
   width: 25%;
+  min-width: 240px; 
   height: 100vh;
 }
 
@@ -69,8 +70,8 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   min-height: 350px;
 }
 
-/* responsive css for phones */
-@media screen and (max-width: 420px) {
+/* responsive css for mobile devices */
+@media screen and (max-width: 780px) {
 .App {
   display: block;
 }
