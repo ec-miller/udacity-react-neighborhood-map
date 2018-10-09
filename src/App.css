@@ -22,12 +22,17 @@
   color: white;
 }
 
+.MobileHeader {
+  display: none;
+}
+
 .App-title {
   font-size: 1.5em;
 }
 
 form {
   /* padding: 1em; */
+  background-color: white;
 }
 
 input {
@@ -62,4 +67,60 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
 .infoWindow{
   min-width: 500px;
   min-height: 350px;
+}
+
+/* responsive css for phones */
+@media screen and (max-width: 420px) {
+.App {
+  display: block;
+}
+.MobileHeader {
+  position: relative;
+  height: 10vh;
+  background-color: #222;
+  color: white;
+  display: block;
+  text-align: center;
+  /* padding: 0; */
+}
+.sidebarToggle {
+  display: inline-block;
+  float: left;
+  margin-top: 1em;
+  margin-left: 0.5em;
+}
+.MobileHeaderText {
+  display: inline-block;
+  margin-top: 1em;
+  margin-right: 1em;
+}
+.map {
+  position: relative;
+  width: 100% !important;
+  height: 90vh !important;
+}
+.infoWindow {
+  max-width: 50%;
+  max-height: 90%;
+}
+.Sidebar {
+  width: 75%;
+  height: 100vh;
+  left: -1000px;
+  position: absolute;
+  z-index: 100;
+}
+.SidebarShow {
+  width: 75%;
+  height: 100vh;
+  left: 0;
+  position: absolute;
+  z-index: 100;
+}
+.App-logo {
+  display: none;
+}
+.App-header {
+  height: 10% !important;
+}
 }

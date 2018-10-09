@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Sidebar from './Sidebar.js';
 import Map from './Map.js';
+import MobileHeader from './MobileHeader.js'
 import './App.css';
 
 class App extends Component {
@@ -119,6 +120,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        
         <Sidebar 
           cities={cities}
           searchTerm={searchTerm}
@@ -126,6 +128,7 @@ class App extends Component {
           selectedListItem={selectedListItem}
           updateListSelection={this.updateListSelection}
         />
+        <MobileHeader />
         <Map 
           markersList={this.markersList}
           showingInfoWindow={showingInfoWindow}
