@@ -110,6 +110,7 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   left: -1000px;
   position: absolute;
   z-index: 100;
+  transition: left 1s ease-in; 
 }
 .SidebarShow {
   width: 75%;
@@ -117,6 +118,7 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   left: 0;
   position: absolute;
   z-index: 100;
+  transition: left 1s ease-out; 
 }
 .App-logo {
   display: none;
