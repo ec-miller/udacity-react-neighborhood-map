@@ -92,13 +92,13 @@ class App extends Component {
       selectedPlace: selectedPlace,
       showingInfoWindow: true
     });
-    this.forceUpdate();
   }
 
   onMapClicked = () => {
     if (this.state.showingInfoWindow) {
       this.setState({ showingInfoWindow: false })
-    }
+    };
+    this.closeMobileMenu();
   }
 
   updateListSelection = (selectedListItem) => {
@@ -108,6 +108,14 @@ class App extends Component {
     } else {
       this.setState({ selectedListItem });
       this.onListClick(selectedListItem);
+      this.closeMobileMenu()
+    }
+  }
+
+  closeMobileMenu = () => {
+    const sidebarShow = document.getElementsByClassName('SidebarShow');
+    if (sidebarShow[0]) {
+      sidebarShow[0].className = 'Sidebar';
     }
   }
 

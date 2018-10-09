@@ -3,9 +3,9 @@ import CheckIcon from '@material-ui/icons/Check'
 
 class MobileHeader extends React.Component {
   toggleMenu = () => {
-    const sidebar = document.getElementsByClassName('Sidebar')
-    if (sidebar[0].className === 'Sidebar') {
-      sidebar[0].className = 'SidebarShow'
+    const sidebar = document.getElementsByClassName('Sidebar');
+    if (sidebar[0]) {
+      sidebar[0].className = 'SidebarShow';
     }
   }
 
