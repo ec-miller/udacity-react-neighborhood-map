@@ -6,6 +6,9 @@ class MobileHeader extends React.Component {
     const sidebar = document.getElementsByClassName('Sidebar');
     if (sidebar[0]) {
       sidebar[0].className = 'SidebarShow';
+    } else {
+      const sidebarShow = document.getElementsByClassName('SidebarShow');
+      sidebarShow[0].className = 'Sidebar';
     }
   }
 
@@ -16,7 +19,7 @@ class MobileHeader extends React.Component {
           className='sidebarToggle' 
           onClick={this.toggleMenu}
         />
-        <h2 className="MobileHeaderText">Hello App!</h2>
+        <h2 className="MobileHeaderText">Eric's European Adventures</h2>
       </div>
 
     );

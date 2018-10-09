@@ -19,17 +19,17 @@ class Sidebar extends React.Component {
 
     return (
       <div className="Sidebar">
-        <header className="App-header" style={{ height: '20%' }}>
+        <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Eric's European Adventures</h1>
         </header>
-        <form style={{ height: '10%' }}>
+        <form>
           <input type="text" name="search" placeholder="Search for Places" 
             value={searchTerm || ''} 
             onChange={ (event) => updateSearch(event.target.value)} 
           />  
         </form> 
-        <div style={{ minHeight: '60%', maxHeight: '65%', overflow: 'auto', backgroundColor: 'white' }}>
+        <div style={{ maxHeight: '50%', overflow: 'auto', backgroundColor: 'white' }}>
           <List component="nav">
             {searchCities.map( city => {
               return <ListItem divider button className='clickMe' 

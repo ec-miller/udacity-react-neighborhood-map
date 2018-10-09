@@ -124,7 +124,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        
+        <MobileHeader />
         <Sidebar 
           cities={cities}
           searchTerm={searchTerm}
@@ -132,7 +132,6 @@ class App extends Component {
           selectedListItem={selectedListItem}
           updateListSelection={this.updateListSelection}
         />
-        <MobileHeader />
         <Map 
           markersList={this.markersList}
           showingInfoWindow={showingInfoWindow}
