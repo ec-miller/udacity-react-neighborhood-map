@@ -66,7 +66,7 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   width: 75% !important
 }
 
-.infoWindow{
+.infoWindow {
   min-width: 500px;
   min-height: 350px;
 }
@@ -104,10 +104,6 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   width: 100% !important;
   height: 90vh !important;
 }
-.infoWindow {
-  max-width: 50%;
-  max-height: 90%;
-}
 .Sidebar {
   width: 75%;
   height: 100vh;
@@ -127,5 +123,17 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
 }
 .App-header {
   height: 10% !important;
+}
+}
+
+@media screen and (max-width: 420px) {
+.infoWindow {
+  min-width: 300px;
+  min-height: 200px;
+  max-width: 350px;
+}
+.infoWindow img {
+  width: 300px;
+  height: auto;
 }
 }
