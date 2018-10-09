@@ -72,13 +72,6 @@ class App extends Component {
     this.setState({ searchTerm: searchTerm })
   }
 
-  onMarkerClick = (props) => {
-    this.setState({
-      selectedPlace: props,
-      showingInfoWindow: true
-    });
-  }
-
   onListClick = (city) => {
     const getMarker = this.markersList.filter( (marker) => marker.label === city)
     const selectedPlace = {
@@ -142,7 +135,6 @@ class App extends Component {
           showingInfoWindow={showingInfoWindow}
           selectedPlace={selectedPlace}
           updateListSelection={this.updateListSelection}
-          onMarkerClick={this.onMarkerClick}
           onMapClicked={this.onMapClicked}
           searchTerm={searchTerm}
         />
