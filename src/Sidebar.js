@@ -29,7 +29,7 @@ class Sidebar extends React.Component {
             onChange={ (event) => updateSearch(event.target.value)} 
           />  
         </form> 
-        <div style={{ maxHeight: '50%', overflow: 'auto', backgroundColor: 'white' }}>
+        <div className="sidebarList">
           <List component="nav">
             {searchCities.map( city => {
               return <ListItem divider button className='clickMe' 
@@ -47,6 +47,7 @@ class Sidebar extends React.Component {
             })} 
           </List>
         </div>
+        <div className='footer'></div>
       </div>
     );
   }
