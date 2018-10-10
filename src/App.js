@@ -6,9 +6,6 @@ import './App.css';
 
 class App extends Component {
   state = {
-    cities: ['Dubrovnik, Croatia', 'Dublin, Ireland', 'St. Ulrich, Italy', 'Kiruna, Sweden',
-      'Amsterdam, The Netherlands', 'Berlin, Germany', 'Garmische-Partenkirchen, Germany',
-      'Copenhagen, Denmark', 'Paris, France', 'Rome, Italy'],
     showingInfoWindow: false,
     selectedPlace: {},
     seachTerm: '',
@@ -65,6 +62,36 @@ class App extends Component {
       lat: 41.9027835,
       lng: 12.4963655,
       label: 'Rome, Italy'
+    },
+    {
+      lat: 47.4979,
+      lng: 19.0402,
+      label: 'Budapest, Hungary'
+    },
+    {
+      lat: 52.9719,
+      lng: -9.4265,
+      label: 'Cliffs of Moher, Ireland'
+    },
+    {
+      lat: 47.6302,
+      lng: 9.6544,
+      label: 'Berchtesgaden, Germany'
+    },
+    {
+      lat: 59.3293,
+      lng: 18.0686,
+      label: 'Stockholm, Sweden'
+    },
+    {
+      lat: 50.0755,
+      lng: 14.4378,
+      label: 'Prague, Czech Republic'
+    },
+    {
+      lat: 44.1488,
+      lng: 9.6544,
+      label: 'Monterosso al Mare, Italy'
     }
   ]
 
@@ -116,7 +143,7 @@ class App extends Component {
   }
 
   render() {
-    const cities = this.state.cities
+    const cities = this.markersList.map(marker => marker.label)
     const showingInfoWindow = this.state.showingInfoWindow
     const selectedPlace = this.state.selectedPlace
     const searchTerm = this.state.searchTerm
