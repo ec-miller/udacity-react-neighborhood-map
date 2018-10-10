@@ -78,75 +78,80 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
     width: 75% !important
   }
 
+.infoWindow {
+  min-width: 500px;
+  min-height: 350px;
+}
+
+/* responsive css for the screen widths at which the sidebar is governed by min-width */
 @media screen and (min-width: 781px) and (max-width: 959px) {
   .map {
     width: calc(100% - 240px) !important
   }
 }
 
-.infoWindow {
-  min-width: 500px;
-  min-height: 350px;
-}
-
 /* responsive css for mobile devices */
 @media screen and (max-width: 780px) {
-.App {
+  .App {
   display: block;
-}
-.App-header {
-  display: none;
-}
-.MobileHeader {
-  position: relative;
-  height: 10vh;
-  background-color: #222;
-  color: white;
-  display: block;
-  text-align: center;
-  /* padding: 0; */
-}
-.sidebarToggle {
-  display: inline-block;
-  float: left;
-  margin-top: 1em;
-  margin-left: 0.5em;
-}
-.MobileHeaderText {
-  display: inline-block;
-  margin-top: 1em;
-  margin-right: 1em;
-}
-.map {
-  position: relative;
-  width: 100% !important;
-  height: 90vh !important;
-}
-.Sidebar {
-  width: 75%;
-  height: 100vh;
-  left: -1000px;
-  position: absolute;
-  z-index: 100;
-  transition: left 1s ease-in; 
-  /* overflow: hidden; */
-}
-.SidebarShow {
-  width: 75%;
-  height: 100vh;
-  left: 0;
-  position: absolute;
-  z-index: 100;
-  transition: left 1s ease-out; 
-}
-.App-logo {
-  display: none;
-}
-.App-header {
-  height: 10% !important;
-}
+  }
+  .App-header {
+    display: none;
+  }
+  .MobileHeader {
+    position: relative;
+    height: 10vh;
+    background-color: #222;
+    color: white;
+    display: block;
+    text-align: center;
+    /* padding: 0; */
+  }
+  .sidebarToggle {
+    display: inline-block;
+    float: left;
+    margin-top: 1em;
+    margin-left: 0.5em;
+  }
+  .MobileHeaderText {
+    display: inline-block;
+    margin-top: 1em;
+    margin-right: 1em;
+  }
+  .map {
+    position: relative;
+    width: 100% !important;
+    height: 90vh !important;
+  }
+  .Sidebar {
+    width: 75%;
+    height: 80%;
+    left: -1000px;
+    position: absolute;
+    z-index: 100;
+    transition: left 1s ease-in; 
+    /* overflow: hidden; */
+  }
+  .sidebarList {
+    height: 90%;
+  }
+  .SidebarShow {
+    width: 75%;
+    height: 80%;
+    left: 0;
+    position: absolute;
+    z-index: 100;
+    transition: left 1s ease-out; 
+  }
+  .App-logo, .footer {
+    display: none;
+  }
+  .App-header {
+    height: 10% !important;
+  }
 }
 
+/* responsive css for infoWindows on mobiles */
 @media screen and (max-width: 420px) {
 .infoWindow {
   min-width: 300px;
