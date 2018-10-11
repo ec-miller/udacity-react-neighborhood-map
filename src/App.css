@@ -153,13 +153,28 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
 
 /* responsive css for infoWindows on mobiles */
 @media screen and (max-width: 420px) {
-.infoWindow {
-  min-width: 300px;
-  min-height: 200px;
-  max-width: 350px;
+  .infoWindow {
+    min-width: 300px;
+    min-height: 200px;
+    max-width: 350px;
+  }
+  .infoWindow img {
+    width: 300px;
+    height: auto;
+  }
 }
-.infoWindow img {
-  width: 300px;
-  height: auto;
-}
+
+@media screen and (max-width: 360px) {
+  .infoWindow {
+    min-width: 200px;
+    min-height: 100px;
+    max-width: 250px;
+  }
+  .infoWindow img {
+    width: 250px;
+    height: auto;
+  }
+  .MobileHeaderText {
+    font-size: 110%
+  }
 }
