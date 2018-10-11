@@ -282,12 +282,15 @@ export class MapContainer extends React.Component {
         >
           <div className="infoWindow">
             <h1>{selectedPlace.name}</h1>
-            { (selectedPhoto[0]) && 
-              <img
-              src={`https://farm${selectedPhoto[0].photos[randomPhoto].farm}.staticflickr.com/${selectedPhoto[0].photos[randomPhoto].server}/${selectedPhoto[0].photos[randomPhoto].id}_${selectedPhoto[0].photos[randomPhoto].secret}.jpg`}
-              title={selectedPhoto[0].photos[0].title}
-              alt={'photo of' + selectedPhoto[0].name}
-              ></img>
+            { (selectedPhoto[0]) &&
+              <div> 
+                <img
+                src={`https://farm${selectedPhoto[0].photos[randomPhoto].farm}.staticflickr.com/${selectedPhoto[0].photos[randomPhoto].server}/${selectedPhoto[0].photos[randomPhoto].id}_${selectedPhoto[0].photos[randomPhoto].secret}.jpg`}
+                title={selectedPhoto[0].photos[0].title}
+                alt={'Photo of' + selectedPhoto[0].name}
+                ></img>
+                <figcaption>Image sourced via Flickr API</figcaption>
+              </div>
             }
           </div>
         </InfoWindow>  
