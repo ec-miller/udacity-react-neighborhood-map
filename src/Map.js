@@ -41,7 +41,7 @@ export class MapContainer extends React.Component {
   }
 
   render() {
-    const { showingInfoWindow, markersList, selectedPlace, onMapClicked, searchTerm, updateListSelection } = this.props
+    const { showingInfoWindow, markersList, selectedPlace, onMapClicked, searchTerm, updateListSelection, animateMarker } = this.props
     const selectedPhoto = this.state.photoDetails.filter(photo => photo.name === selectedPlace.name)
     const randomPhoto = Math.floor(Math.random() * Math.floor(20))
     const searchRegex = RegExp(searchTerm, 'i')
@@ -261,6 +261,7 @@ export class MapContainer extends React.Component {
       >
         {markers.map( marker => {
           return <Marker
+          className={marker.label}
           title={marker.label}
           name={marker.label}
           key={marker.label}
@@ -268,8 +269,9 @@ export class MapContainer extends React.Component {
             lat: marker.lat,
             lng: marker.lng
           }}
+          animation={ animateMarker && marker.label === selectedPlace.name && window.google.maps.Animation.BOUNCE }
           onClick={ (event) => {
-            updateListSelection(event.name); 
+            updateListSelection(event.name);
           }}
           />
         })}

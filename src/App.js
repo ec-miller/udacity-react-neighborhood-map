@@ -9,7 +9,8 @@ class App extends Component {
     showingInfoWindow: false,
     selectedPlace: {},
     seachTerm: '',
-    selectedListItem: ''
+    selectedListItem: '',
+    animateMarker: false
   }
 
   markersList = [
@@ -96,10 +97,14 @@ class App extends Component {
   ]
 
   updateSearch = (searchTerm) => {
-    this.setState({ searchTerm: searchTerm })
+    this.setState({ 
+      showingInfoWindow: false,
+      searchTerm: searchTerm 
+    })
   }
 
   onListClick = (city) => {
+    this.setState({showingInfoWindow: false})
     const getMarker = this.markersList.filter( (marker) => marker.label === city)
     const selectedPlace = {
       name: city,
@@ -108,10 +113,8 @@ class App extends Component {
         lng: getMarker[0].lng
       }
     }
-    this.setState({
-      selectedPlace: selectedPlace,
-      showingInfoWindow: true
-    });
+    this.setState({selectedPlace: selectedPlace});
+    setTimeout( () => this.setState({showingInfoWindow: true}), 850);
   }
 
   onMapClicked = () => {
@@ -124,6 +127,11 @@ class App extends Component {
     this.closeMobileMenu();
   }
 
+  triggerAnimation = () => {
+    this.setState({ animateMarker: true });
+    setTimeout( () => this.setState({ animateMarker: false}), 750);
+  } 
+
   updateListSelection = (selectedListItem) => {
     if (this.state.selectedListItem === selectedListItem) {
       this.setState({ selectedListItem: '' });
@@ -131,7 +139,8 @@ class App extends Component {
     } else {
       this.setState({ selectedListItem });
       this.onListClick(selectedListItem);
-      this.closeMobileMenu()
+      this.closeMobileMenu();
+      this.triggerAnimation();
     }
   }
 
@@ -148,6 +157,7 @@ class App extends Component {
     const selectedPlace = this.state.selectedPlace
     const searchTerm = this.state.searchTerm
     const selectedListItem = this.state.selectedListItem
+    const animateMarker = this.state.animateMarker
 
     return (
       <div className="App">
@@ -166,6 +176,7 @@ class App extends Component {
           updateListSelection={this.updateListSelection}
           onMapClicked={this.onMapClicked}
           searchTerm={searchTerm}
+          animateMarker={animateMarker}
         />
       </div>
     );
