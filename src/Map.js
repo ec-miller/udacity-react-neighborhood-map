@@ -287,7 +287,7 @@ export class MapContainer extends React.Component {
                 <img
                 src={`https://farm${selectedPhoto[0].photos[randomPhoto].farm}.staticflickr.com/${selectedPhoto[0].photos[randomPhoto].server}/${selectedPhoto[0].photos[randomPhoto].id}_${selectedPhoto[0].photos[randomPhoto].secret}.jpg`}
                 title={selectedPhoto[0].photos[0].title}
-                alt={'Photo of' + selectedPhoto[0].name}
+                alt={`Photo of ${selectedPhoto[0].name}`}
                 ></img>
                 <figcaption>Image sourced via Flickr API</figcaption>
               </div>
