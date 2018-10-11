@@ -1,7 +1,7 @@
 # Neighborhood Map React App
 ### Udacity Front-End Web Developer Nanodegree program
 
-This app is Project 7 in the Udacity Front-End Web Developer Nanodegree program. In this project we were tasked creating an SPA in react that displays a map of an interesting neighborhood. The neighborhood I chose is Europe. In the app I display a number of locations that I have visited in Europe using the Google Maps Javascript API. The app allows you to click on location markers to display images source from the Flickr API. A sidebar allows users to filter the list of locations and select from their filtered list. Enjoy exploring Europe!
+This app is Project 7 in the Udacity Front-End Web Developer Nanodegree program. In this project we were tasked with creating an SPA in React that displays a map of an interesting neighborhood. The neighborhood I chose is Europe. Using the Google Maps Javascript API, I display a number of locations that I have visited in Europe. The app allows you to click on location markers to display images sourced via the Flickr API. A sidebar allows users to filter the list of locations and select from the filtered list. Enjoy exploring Europe!
 
 ### How to Use
 
@@ -28,9 +28,9 @@ Repository created September 28th, 2018
 ## Credits
 Grow with Google and Udacity Front End Scholarship Program
 
-The [Google Maps Javascipt API](https://developers.google.com/maps/documentation/javascript/tutorial) is awesome!
+The [Google Maps Javascipt API](https://developers.google.com/maps/documentation/javascript/tutorial) is kick-ass!
 
-The [Flickr API](https://www.flickr.com/services/api/) is convenient and easy to use
+The [Flickr API](https://www.flickr.com/services/api/) is convenient and easy to use!
 
 ### Create React App
 
