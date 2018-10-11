@@ -1,5 +1,5 @@
 import React from 'react';
-import CheckIcon from '@material-ui/icons/Check'
+import MenuIcon from '@material-ui/icons/Menu'
 
 class MobileHeader extends React.Component {
   toggleMenu = () => {
@@ -15,7 +15,7 @@ class MobileHeader extends React.Component {
   render() {
     return (
       <div className="MobileHeader">
-        <CheckIcon
+        <MenuIcon
           className='sidebarToggle' 
           onClick={this.toggleMenu}
         />
