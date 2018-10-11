@@ -41,7 +41,9 @@ class Sidebar extends React.Component {
                   >
                 <ListItemText primary={city} />
                 <ListItemIcon id={city}>
-                  <CheckIcon />
+                  <CheckIcon 
+                    style={{color: selectedListItem === city ? 'green' : '#000000'} }
+                  />
                 </ListItemIcon> 
               </ListItem>
             })} 
