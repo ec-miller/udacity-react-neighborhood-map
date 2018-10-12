@@ -18,20 +18,22 @@ class App extends Component {
     this.setState({ 
       showingInfoWindow: false,
       searchTerm: searchTerm 
-    })
+    });
   }
 
   onListClick = (city) => {
-    this.setState({showingInfoWindow: false})
-    const getMarker = markersList.filter( (marker) => marker.label === city)
+    this.setState({showingInfoWindow: false});
+    const getMarker = markersList.filter( ({ label }) => label === city);
     const selectedPlace = {
       name: city,
       position: {
         lat: getMarker[0].lat,
         lng: getMarker[0].lng
       }
-    }
+    };
     this.setState({selectedPlace: selectedPlace});
+    //setTimeout is applied to showingInfoWindow so that the Window will 
+    //appear after the marker stops bouncing
     setTimeout( () => this.setState({showingInfoWindow: true}), 850);
   }
 
