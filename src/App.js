@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Sidebar from './Sidebar.js';
+import ErrorBoundary from './ErrorBoundary.js'
 import Map from './Map.js';
 import MobileHeader from './MobileHeader.js'
 import { markersList } from './constants.js'
@@ -85,6 +86,7 @@ class App extends Component {
           selectedListItem={selectedListItem}
           updateListSelection={this.updateListSelection}
         />
+        <ErrorBoundary>
         <Map 
           markersList={markersList}
           showingInfoWindow={showingInfoWindow}
@@ -94,6 +96,7 @@ class App extends Component {
           searchTerm={searchTerm}
           animateMarker={animateMarker}
         />
+        </ErrorBoundary>
       </div>
     );
   }
