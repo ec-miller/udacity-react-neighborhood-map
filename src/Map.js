@@ -4,7 +4,6 @@ import { styles } from './constants.js'
 import CodeIcon from '@material-ui/icons/Code'
 
 export class MapContainer extends React.Component {
-  key = 'AIzaSyABpmKqdKmqcu7iEZ-JE0r5CgxqFljQsmY'
   data = {
     name: 'European Places of Interest',
     lat: 49.815273,
