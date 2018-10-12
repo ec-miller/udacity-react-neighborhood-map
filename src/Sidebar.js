@@ -42,8 +42,8 @@ const Sidebar = ({ cities, searchTerm, updateSearch, selectedListItem, updateLis
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="App-title">Eric's European Adventures</h1>
       </header>
-      <form>
-        <input type="search" name="search" placeholder="Search for Places" 
+      <form role="search">
+        <input type="search" aria-label="search text" name="search" placeholder="Filter Locations" 
           value={searchTerm || ''} 
           onChange={ (event) => updateSearch(event.target.value)} 
         />  
