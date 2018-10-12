@@ -27,14 +27,15 @@ export class MapContainer extends React.Component {
                 ...state.photoDetails,
                 { name: marker.label, photos: photoDetails.photos.photo }
               ]
-            }))
+            }));
           } else {
-            console.log('Error: Unable to pull photos via Flickr API',photoDetails.code,photoDetails.message)
+            console.log('Error: Unable to pull photos via Flickr API',photoDetails.code,photoDetails.message);
+            this.setState({ flickrAPI: false });
           }
         })
         .catch(error => {
-          console.log(error)
-          this.setState({ flickrAPI: false })
+          console.log('Error: Unable to pull photos via Flickr API',error);
+          this.setState({ flickrAPI: false });
         }) 
     })
   }
