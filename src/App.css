@@ -105,7 +105,6 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
     color: white;
     display: block;
     text-align: center;
-    /* padding: 0; */
   }
   .sidebarToggle {
     display: inline-block;
@@ -161,6 +160,9 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   .infoWindow img {
     width: 300px;
     height: auto;
+  }
+  .MobileHeaderText {
+    font-size: 130%
   }
 }
 
