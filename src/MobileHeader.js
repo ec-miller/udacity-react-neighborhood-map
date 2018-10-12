@@ -1,8 +1,8 @@
 import React from 'react';
 import MenuIcon from '@material-ui/icons/Menu'
 
-class MobileHeader extends React.Component {
-  toggleMenu = () => {
+const MobileHeader = () => {
+  const toggleMenu = () => {
     const sidebar = document.getElementsByClassName('Sidebar');
     if (sidebar[0]) {
       sidebar[0].className = 'SidebarShow';
@@ -12,18 +12,16 @@ class MobileHeader extends React.Component {
     }
   }
 
-  render() {
-    return (
-      <div className="MobileHeader">
-        <MenuIcon
-          className='sidebarToggle' 
-          onClick={this.toggleMenu}
-        />
-        <h2 className="MobileHeaderText">Eric's European Adventures</h2>
-      </div>
+  return (
+    <div className="MobileHeader">
+      <MenuIcon
+        className='sidebarToggle' 
+        onClick={ () => toggleMenu() }
+      />
+      <h2 className="MobileHeaderText">Eric's European Adventures</h2>
+    </div>
+  );
 
-    );
-  }
 }
 
 export default MobileHeader;
