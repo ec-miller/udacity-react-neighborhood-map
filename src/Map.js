@@ -15,6 +15,11 @@ export class MapContainer extends React.Component {
     flickrAPI: true
   }  
 
+  style = {
+      width: '100%',
+      height: '100%'
+    }
+
   getPhotoDetails = () => {
     this.props.markersList.forEach( (marker) => {
       fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0c0162b8a07a500a529e6ed1faf1b191&tags=${marker.label}&sort=interestingness-desc&privacy_filter=1&media=photos&has_geo=&per_page=20&format=json&nojsoncallback=1`)
@@ -57,15 +62,10 @@ export class MapContainer extends React.Component {
       markers = markersList;
     }
 
-    const style = {
-      width: '100%',
-      height: '100%'
-    }
-
     return (
       <Map 
         className="map"
-        style={style} 
+        style={this.style} 
         styles={styles}
         google={this.props.google} 
         zoom={5}
