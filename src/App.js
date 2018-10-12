@@ -73,11 +73,7 @@ class App extends Component {
 
   render() {
     const cities = markersList.map(marker => marker.label)
-    const showingInfoWindow = this.state.showingInfoWindow
-    const selectedPlace = this.state.selectedPlace
-    const searchTerm = this.state.searchTerm
-    const selectedListItem = this.state.selectedListItem
-    const animateMarker = this.state.animateMarker
+    const { showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker } = this.state
 
     return (
       <div className="App">
