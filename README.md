@@ -10,14 +10,14 @@ This app is Project 7 in the Udacity Front-End Web Developer Nanodegree program.
 
 2. Install all project dependencies with `npm install` 
 
-3. Start the development server with `npm start`, localhost:3000 will launch in your default browser once it is ready!
+3. Start the development server with `npm start`, `localhost:3000` will launch in your default browser once it is ready!
 
 *Note that the service worker is configured to run only when in the production build.*
 
 ### Production
-1. In the project folder enter the command `npm run build`
+1. In the project folder enter the command `npm run build` to create a production build of the app in the `./build` directory
 
-2. This will create a production build of the app that can be deployed to a server
+2. To serve locally using [serve](https://www.npmjs.com/package/serve/v/6.5.6) run `serve -s build` and navigate to `localhost:5000` in your browser
 
 ## Technologies
 - React
