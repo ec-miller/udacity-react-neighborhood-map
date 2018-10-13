@@ -6,7 +6,7 @@ import CodeIcon from '@material-ui/icons/Code'
 export class MapContainer extends React.Component {
   data = {
     name: 'European Places of Interest',
-    lat: 49.815273,
+    lat: 51.515273,
     lng: 6.129582999999999,
   }
   state = {
@@ -45,7 +45,13 @@ export class MapContainer extends React.Component {
     })
   }
 
+  gm_authFailure() {
+    window.alert("Error: Google Maps Javascript API Key missing")
+  }
+
+
   componentDidMount() {
+    window.gm_authFailure = this.gm_authFailure;
     this.getPhotoDetails();
   }
 
