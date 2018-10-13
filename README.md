@@ -3,13 +3,21 @@
 
 This app is Project 7 in the Udacity Front-End Web Developer Nanodegree program. In this project we were tasked with creating an SPA in React that displays a map of an interesting neighborhood. The neighborhood I chose is Europe. Using the Google Maps Javascript API, I display a number of locations that I have visited in Europe. The app allows you to click on location markers to display images sourced via the Flickr API. A sidebar allows users to filter the list of locations and select from the filtered list. Enjoy exploring Europe!
 
-### How to Use
+## How to Use
 
+### Development
 1. Save a local copy with `git clone https://github.com/ec-miller/udacity-react-neighborhood-map.git`
 
 2. Install all project dependencies with `npm install` 
 
 3. Start the development server with `npm start`, localhost:3000 will launch in your default browser once it is ready!
+
+Note that the service worker is configured to run only when in the production build.
+
+### Production
+1. In the project folder enter the command `npm run build`
+
+2. This will create a production build of the app that can be deployed to a server
 
 ## Technologies
 - React
