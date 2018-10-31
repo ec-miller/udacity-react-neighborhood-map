@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import CheckIcon from '@material-ui/icons/Check'
 import PersonIcon from '@material-ui/icons/Person'
 
-const Item = ({ city, updateListSelection, selectedListItem }) => (
+const Item = ({ city, travelBuddies, sharedLocales, updateListSelection, selectedListItem }) => (
   <ListItem 
     divider
     button
@@ -21,12 +21,12 @@ const Item = ({ city, updateListSelection, selectedListItem }) => (
     <ListItemText primary={city} />
     <ListItemIcon id={city}>
       <PersonIcon
-        style={{ color: selectedListItem === city ? 'green' : '#000000' }}
+        style={{ color: sharedLocales.some( (locale) => locale === city) ? 'green' : '#000000' }}
       />
     </ListItemIcon> 
     <ListItemIcon id={city}>
-      <CheckIcon 
-        style={{color: selectedListItem === city ? 'green' : '#000000'} }
+      <CheckIcon
+        style={{ color: selectedListItem === city ? 'green' : '#000000' }}
       />
     </ListItemIcon> 
   </ListItem>             
@@ -43,18 +43,21 @@ const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, sele
     }
   })();
   //find friends who have travelled to places that you have travelled
-  let travelBuddies = {}
+  let travelBuddies = {};
+  let sharedLocales = [];
   otherUsers.forEach(otherUser => {
     travelBuddies[otherUser] = [];
     markersList[otherUser].forEach(marker => {
       cities.forEach(city => {
         if (city === marker.label) {
-          travelBuddies[otherUser].push(city)
+          travelBuddies[otherUser].push(city);
+          sharedLocales.push(city);
         }
       });
     });
   });
   console.log(travelBuddies);
+  console.log(sharedLocales);
 
 
 
@@ -75,6 +78,8 @@ const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, sele
           {searchCities.map( city => 
             <Item
               city={city}
+              travelBuddies={travelBuddies}
+              sharedLocales={sharedLocales}
               updateListSelection={updateListSelection}
               selectedListItem={selectedListItem}
               key={city} 
