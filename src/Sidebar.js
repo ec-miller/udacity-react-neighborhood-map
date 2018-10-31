@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import CheckIcon from '@material-ui/icons/Check'
+import PersonIcon from '@material-ui/icons/Person'
 
 const Item = ({ city, updateListSelection, selectedListItem }) => (
   <ListItem 
@@ -19,6 +20,11 @@ const Item = ({ city, updateListSelection, selectedListItem }) => (
   >
     <ListItemText primary={city} />
     <ListItemIcon id={city}>
+      <PersonIcon
+        style={{ color: selectedListItem === city ? 'green' : '#000000' }}
+      />
+    </ListItemIcon> 
+    <ListItemIcon id={city}>
       <CheckIcon 
         style={{color: selectedListItem === city ? 'green' : '#000000'} }
       />
@@ -26,16 +32,31 @@ const Item = ({ city, updateListSelection, selectedListItem }) => (
   </ListItem>             
 )
 
-const Sidebar = ({ user, markersList, searchTerm, updateSearch, selectedListItem, updateListSelection }) => {
-  const cities = markersList[user].map(marker => marker.label)
-  const searchRegex = RegExp(searchTerm,'i')
-    const searchCities = (() => {
-      if (searchTerm) {
+const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, selectedListItem, updateListSelection }) => {
+  const cities = markersList[user].map(marker => marker.label);
+  const searchRegex = RegExp(searchTerm,'i');
+  const searchCities = (() => {
+    if (searchTerm) {
       return cities.filter( city => searchRegex.test(city) )
     } else {
       return cities;
     }
-    })();
+  })();
+  //find friends who have travelled to places that you have travelled
+  let travelBuddies = {}
+  otherUsers.forEach(otherUser => {
+    travelBuddies[otherUser] = [];
+    markersList[otherUser].forEach(marker => {
+      cities.forEach(city => {
+        if (city === marker.label) {
+          travelBuddies[otherUser].push(city)
+        }
+      });
+    });
+  });
+  console.log(travelBuddies);
+
+
 
   return (
     <div className="Sidebar">

@@ -9,6 +9,7 @@ import './App.css';
 class App extends Component {
   state = {
     user: 'Eric',
+    otherUsers: ['Russ','Scott','Michael'],
     showingInfoWindow: false,
     selectedPlace: {},
     seachTerm: '',
@@ -75,13 +76,14 @@ class App extends Component {
 
   render() {
     // const cities = markersList.map(marker => marker.label)
-    const { user, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker } = this.state
+    const { user, otherUsers, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker } = this.state
 
     return (
       <div className="App">
         <MobileHeader />
         <Sidebar
-          user={user} 
+          user={user}
+          otherUsers={otherUsers} 
           markersList={markersList}
           searchTerm={searchTerm}
           updateSearch={this.updateSearch}
