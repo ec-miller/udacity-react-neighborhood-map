@@ -26,7 +26,8 @@ const Item = ({ city, updateListSelection, selectedListItem }) => (
   </ListItem>             
 )
 
-const Sidebar = ({ cities, searchTerm, updateSearch, selectedListItem, updateListSelection }) => {
+const Sidebar = ({ user, markersList, searchTerm, updateSearch, selectedListItem, updateListSelection }) => {
+  const cities = markersList[user].map(marker => marker.label)
   const searchRegex = RegExp(searchTerm,'i')
     const searchCities = (() => {
       if (searchTerm) {

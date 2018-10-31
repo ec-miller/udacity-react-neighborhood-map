@@ -20,7 +20,7 @@ export class MapContainer extends React.Component {
     }
 
   getPhotoDetails = () => {
-    this.props.markersList.forEach( (marker) => {
+    this.props.markersList[this.props.user].forEach( (marker) => {
       fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0c0162b8a07a500a529e6ed1faf1b191&tags=${marker.label}&sort=interestingness-desc&privacy_filter=1&media=photos&has_geo=&per_page=20&format=json&nojsoncallback=1`)
         .then( results => {
           return results.json();
@@ -56,15 +56,16 @@ export class MapContainer extends React.Component {
   }
 
   render() {
-    const { showingInfoWindow, markersList, selectedPlace, onMapClicked, searchTerm, updateListSelection, animateMarker } = this.props
+    const { showingInfoWindow, user, markersList, selectedPlace, onMapClicked, searchTerm, updateListSelection, animateMarker } = this.props
     const selectedPhoto = this.state.photoDetails.filter(photo => photo.name === selectedPlace.name)
     const randomPhoto = Math.floor(Math.random() * Math.floor(20))
     const searchRegex = RegExp(searchTerm, 'i')
+    const myMarkersList = markersList[user]
     let markers
     if (searchTerm) {
-      markers = markersList.filter(marker => searchRegex.test(marker.label))
+      markers = myMarkersList.filter(marker => searchRegex.test(marker.label))
     } else {
-      markers = markersList;
+      markers = myMarkersList;
     }
 
     return (

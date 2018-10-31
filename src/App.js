@@ -3,11 +3,12 @@ import Sidebar from './Sidebar.js';
 import ErrorBoundary from './ErrorBoundary.js'
 import Map from './Map.js';
 import MobileHeader from './MobileHeader.js'
-import { markersList } from './constants.js'
+import { markersList } from './constants2.js'
 import './App.css';
 
 class App extends Component {
   state = {
+    user: 'Eric',
     showingInfoWindow: false,
     selectedPlace: {},
     seachTerm: '',
@@ -24,7 +25,7 @@ class App extends Component {
 
   onListClick = (city) => {
     this.setState({showingInfoWindow: false});
-    const getMarker = markersList.filter( ({ label }) => label === city);
+    const getMarker = markersList[this.state.user].filter( ({ label }) => label === city);
     const selectedPlace = {
       name: city,
       position: {
@@ -73,21 +74,23 @@ class App extends Component {
   }
 
   render() {
-    const cities = markersList.map(marker => marker.label)
-    const { showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker } = this.state
+    // const cities = markersList.map(marker => marker.label)
+    const { user, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker } = this.state
 
     return (
       <div className="App">
         <MobileHeader />
-        <Sidebar 
-          cities={cities}
+        <Sidebar
+          user={user} 
+          markersList={markersList}
           searchTerm={searchTerm}
           updateSearch={this.updateSearch}
           selectedListItem={selectedListItem}
           updateListSelection={this.updateListSelection}
         />
         <ErrorBoundary>
-        <Map 
+        <Map
+          user={user} 
           markersList={markersList}
           showingInfoWindow={showingInfoWindow}
           selectedPlace={selectedPlace}
