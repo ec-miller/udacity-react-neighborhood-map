@@ -74,7 +74,8 @@ form {
 input {
   width:90%;
   font-size: 1.25em;
-  padding: 6% 5%;
+  padding-top: 6%;
+  margin-bottom: 2%;
   border: none;
   outline: none;
 }
