@@ -125,6 +125,7 @@ class App extends Component {
         <ErrorBoundary>
         <Map
           user={user} 
+          allUsers={this.allUsers}
           markersList={markersList}
           showingInfoWindow={showingInfoWindow}
           selectedPlace={selectedPlace}
