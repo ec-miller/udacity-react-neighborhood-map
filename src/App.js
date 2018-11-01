@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import Sidebar from './Sidebar.js';
 import ErrorBoundary from './ErrorBoundary.js'
 import Map from './Map.js';
-import MobileHeader from './MobileHeader.js'
-import { markersList } from './constants2.js'
+import MobileHeader from './MobileHeader.js';
+import { markersList } from './constants2.js';
 import './App.css';
+import Modal from '@material-ui/core/Modal';
+import Button from '@material-ui/core/Button';
 
 class App extends Component {
   state = {
@@ -14,8 +16,11 @@ class App extends Component {
     selectedPlace: {},
     seachTerm: '',
     selectedListItem: '',
-    animateMarker: false
+    animateMarker: false,
+    userSelected: false
   }
+
+  allUsers = ['Eric', 'Russ', 'Scott', 'Michael']
 
   updateSearch = (searchTerm) => {
     this.setState({ 
@@ -74,12 +79,39 @@ class App extends Component {
     }
   }
 
-  render() {
-    // const cities = markersList.map(marker => marker.label)
-    const { user, otherUsers, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker } = this.state
+  //user selection modal
+  selectUser = (user) => {
+    console.log(user);
+    this.setState({ user });
+    const otherUsers = this.allUsers.filter( item => item !== user)
+    this.setState({ otherUsers });
+    this.setState({ userSelected: true });
+  }
 
+  render() {
+    const { user, otherUsers, userSelected, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker } = this.state
+    
+    // modal component to allow user selection
     return (
       <div className="App">
+        <Modal
+        open={!userSelected}
+        >
+          <div className='modal'>
+            <div className='button-container'>
+            <h3 className='button-title'>Select your user:</h3>
+            {this.allUsers.map(user => {
+              return <Button 
+              key={user}
+              className='button'
+              onClick={ () => {
+                this.selectUser(user)
+              }}
+              >{user}</Button>
+            })}
+            </div>
+          </div>
+        </Modal>
         <MobileHeader />
         <Sidebar
           user={user}
