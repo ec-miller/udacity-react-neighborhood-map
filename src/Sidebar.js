@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import CheckIcon from '@material-ui/icons/Check'
 import PersonIcon from '@material-ui/icons/Person'
 
+//need to add hover modal that indicates which buddies have been to a place you've been to
 const Item = ({ city, travelBuddies, sharedLocales, updateListSelection, selectedListItem }) => (
   <ListItem 
     divider
@@ -42,7 +43,9 @@ const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, sele
       return cities;
     }
   })();
+  const nameRegex = RegExp(/s$/)
   //find friends who have travelled to places that you have travelled
+  //need to flip Travel buddies so key is City and value is array of buddies//
   let travelBuddies = {};
   let sharedLocales = [];
   otherUsers.forEach(otherUser => {
@@ -60,12 +63,12 @@ const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, sele
   console.log(sharedLocales);
 
 
-
+  //Need to add icon that activates modal for switching users
   return (
     <div className="Sidebar">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Eric's European Adventures</h1>
+        <h1 className="App-title">{user}'{!nameRegex.test(user) && 's'} European Adventures</h1>
       </header>
       <form role="search">
         <input type="search" aria-label="search text" name="search" placeholder="Filter Locations" 
