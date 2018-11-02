@@ -17,7 +17,7 @@ class App extends Component {
     seachTerm: '',
     selectedListItem: '',
     animateMarker: false,
-    userSelected: false
+    userSelected: true
   }
 
   allUsers = ['Eric', 'Russ', 'Scott', 'Michael']
@@ -80,8 +80,11 @@ class App extends Component {
   }
 
   //user selection modal
+  changeUser = () => {
+    this.setState({ userSelected: false})
+  }
+
   selectUser = (user) => {
-    console.log(user);
     this.setState({ user });
     const otherUsers = this.allUsers.filter( item => item !== user)
     this.setState({ otherUsers });
@@ -99,7 +102,7 @@ class App extends Component {
         >
           <div className='modal'>
             <div className='button-container'>
-            <h3 className='button-title'>Select your user:</h3>
+            <h3 className='button-title'>Select Your Profile</h3>
             {this.allUsers.map(user => {
               return <Button 
               key={user}
@@ -121,6 +124,7 @@ class App extends Component {
           updateSearch={this.updateSearch}
           selectedListItem={selectedListItem}
           updateListSelection={this.updateListSelection}
+          changeUser={this.changeUser}
         />
         <ErrorBoundary>
         <Map

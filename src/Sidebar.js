@@ -1,14 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import CheckIcon from '@material-ui/icons/Check'
-import PersonIcon from '@material-ui/icons/Person'
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import CheckIcon from '@material-ui/icons/Check';
+import PersonIcon from '@material-ui/icons/Person';
+import PeopleIcon from '@material-ui/icons/People';
 
 //need to add hover modal that indicates which buddies have been to a place you've been to
-const Item = ({ city, travelBuddies, sharedLocales, updateListSelection, selectedListItem }) => (
+const Item = ({ city, travelBuddies, sharedLocales, updateListSelection, selectedListItem, changeUser }) => (
   <ListItem 
     divider
     button
@@ -33,7 +34,7 @@ const Item = ({ city, travelBuddies, sharedLocales, updateListSelection, selecte
   </ListItem>             
 )
 
-const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, selectedListItem, updateListSelection }) => {
+const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, selectedListItem, updateListSelection, changeUser }) => {
   const cities = markersList[user].map(marker => marker.label);
   const searchRegex = RegExp(searchTerm,'i');
   const searchCities = (() => {
@@ -90,7 +91,12 @@ const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, sele
           )} 
         </List>
       </div>
-      <div className='footer'></div>
+      <div className='footer'>
+      <PeopleIcon
+          style={{ color: 'green', float: 'left', marginTop: '.4em', marginLeft: '.5em' }}
+      onClick={changeUser}
+      ></PeopleIcon>
+      </div>
     </div>
   );
 }
