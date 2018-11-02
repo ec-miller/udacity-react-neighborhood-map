@@ -56,10 +56,12 @@ span.MuiButton-label-73 span.MuiTouchRipple-root-63 {
   padding: 20px;
   color: white;
   height: 20%;
+  min-height: 153px;
 }
 
 .MobileHeader {
   display: none;
+  min-height: 56px;
 }
 
 .App-title {
