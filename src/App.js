@@ -91,6 +91,8 @@ class App extends Component {
     this.setState({ userSelected: true });
   }
 
+  closeModal = () => this.setState({ userSelected: true });
+
   render() {
     const { user, otherUsers, userSelected, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker } = this.state
     
@@ -99,6 +101,7 @@ class App extends Component {
       <div className="App">
         <Modal
         open={!userSelected}
+        onBackdropClick={() => this.closeModal()}
         >
           <div className='modal'>
             <div className='button-container'>
@@ -107,9 +110,7 @@ class App extends Component {
               return <Button 
               key={user}
               className='button'
-              onClick={ () => {
-                this.selectUser(user)
-              }}
+              onClick={ () => this.selectUser(user) }
               >{user}</Button>
             })}
             </div>
