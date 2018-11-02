@@ -178,7 +178,7 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
     z-index: 100;
     transition: left 1s ease-out; 
   }
-  .App-logo, .footer {
+  .App-logo {
     display: none;
   }
   .App-header {

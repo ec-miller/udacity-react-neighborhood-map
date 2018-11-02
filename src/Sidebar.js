@@ -92,10 +92,10 @@ const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, sele
         </List>
       </div>
       <div className='footer'>
-      <PeopleIcon
+        <PeopleIcon
           style={{ color: 'green', float: 'left', marginTop: '.4em', marginLeft: '.5em' }}
-      onClick={changeUser}
-      ></PeopleIcon>
+          onClick={changeUser}
+        ></PeopleIcon>
       </div>
     </div>
   );
