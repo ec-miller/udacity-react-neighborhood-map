@@ -88,6 +88,11 @@ input {
   background-color: white;
 }
 
+.MuiListItem-gutters-23 {
+  padding-left: 0.75em !important;
+  padding-right: 0.75em !important;
+}
+
 .footer {
   height: 10%;
   background-color: #222;

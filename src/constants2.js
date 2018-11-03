@@ -58,6 +58,11 @@ const markersList = {
       lat: 42.65066059999999,
       lng: 18.0944238,
       label: 'Dubrovnik, Croatia'
+    },
+    {
+      lat: 53.348155,
+      lng: -6.256794999999999,
+      label: 'Dublin, Ireland'
     }
   ],
   Michael: [

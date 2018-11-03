@@ -7,9 +7,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import CheckIcon from '@material-ui/icons/Check';
 import PersonIcon from '@material-ui/icons/Person';
 import PeopleIcon from '@material-ui/icons/People';
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
 
 //need to add hover modal that indicates which buddies have been to a place you've been to
-const Item = ({ city, travelBuddies, sharedLocales, updateListSelection, selectedListItem, changeUser }) => (
+const Item = ({ city, travelBuddies, sharedLocales, updateListSelection, selectedListItem }) => (
   <ListItem 
     divider
     button
@@ -21,11 +23,36 @@ const Item = ({ city, travelBuddies, sharedLocales, updateListSelection, selecte
     selected={ selectedListItem === city }
   >
     <ListItemText primary={city} />
-    <ListItemIcon id={city}>
-      <PersonIcon
-        style={{ color: sharedLocales.some( (locale) => locale === city) ? 'green' : '#000000' }}
-      />
-    </ListItemIcon> 
+    {sharedLocales.some((locale) => locale === city) ?
+      <Tooltip
+        title={
+          <React.Fragment>
+            <h1>Fellow Travellers</h1>
+            {travelBuddies[city].map( buddy => {
+              return <h2 key={buddy}>{buddy}</h2>
+              }
+            )}
+          </React.Fragment>
+        }
+
+
+        placement='top'
+        TransitionComponent={Zoom}>
+        <ListItemIcon id={city}>
+          <PersonIcon
+            style={{ color: 'green' }}
+          />
+        </ListItemIcon>
+      </Tooltip> 
+      :
+      <ListItemIcon id={city}>
+        <PersonIcon
+          style={{ color: '#000000' }}
+        />
+      </ListItemIcon>
+  
+    }
+    
     <ListItemIcon id={city}>
       <CheckIcon
         style={{ color: selectedListItem === city ? 'green' : '#000000' }}
@@ -50,19 +77,18 @@ const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, sele
   let travelBuddies = {};
   let sharedLocales = [];
   otherUsers.forEach(otherUser => {
-    travelBuddies[otherUser] = [];
     markersList[otherUser].forEach(marker => {
       cities.forEach(city => {
         if (city === marker.label) {
-          travelBuddies[otherUser].push(city);
+          if (!travelBuddies[city]) {
+            travelBuddies[city] = []
+          }
+          travelBuddies[city].push(otherUser)
           sharedLocales.push(city);
         }
       });
     });
   });
-  console.log(travelBuddies);
-  console.log(sharedLocales);
-
 
   //Need to add icon that activates modal for switching users
   return (
