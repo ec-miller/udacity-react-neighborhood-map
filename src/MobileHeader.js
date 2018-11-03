@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuIcon from '@material-ui/icons/Menu'
 
-const MobileHeader = () => {
+const MobileHeader = ({user}) => {
   const toggleMenu = () => {
     const sidebar = document.getElementsByClassName('Sidebar');
     if (sidebar[0]) {
@@ -11,6 +11,7 @@ const MobileHeader = () => {
       sidebarShow[0].className = 'Sidebar';
     }
   }
+  const nameRegex = RegExp(/s$/)
 
   return (
     <div className="MobileHeader">
@@ -18,7 +19,7 @@ const MobileHeader = () => {
         className='sidebarToggle' 
         onClick={ () => toggleMenu() }
       />
-      <h2 className="MobileHeaderText">Eric's European Adventures</h2>
+      <h2 className="MobileHeaderText">{user}'{!nameRegex.test(user) && 's'} European Adventures</h2>
     </div>
   );
 
