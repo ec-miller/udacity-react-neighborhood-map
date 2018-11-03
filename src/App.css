@@ -132,6 +132,12 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   }
 }
 
+@media screen and (min-width: 781px) and (max-width: 1060px) {
+  .App-header {
+    min-height: 25%;
+  }
+}
+
 /* responsive css for mobile devices */
 @media screen and (max-width: 780px) {
   .App {
@@ -186,9 +192,6 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   }
   .App-logo {
     display: none;
-  }
-  .App-header {
-    height: 10% !important;
   }
 }
 
