@@ -2,18 +2,25 @@ import React, { Component } from 'react';
 import Sidebar from './Sidebar.js';
 import ErrorBoundary from './ErrorBoundary.js'
 import Map from './Map.js';
-import MobileHeader from './MobileHeader.js'
-import { markersList } from './constants.js'
+import MobileHeader from './MobileHeader.js';
+import { markersList } from './constants2.js';
 import './App.css';
+import Modal from '@material-ui/core/Modal';
+import Button from '@material-ui/core/Button';
 
 class App extends Component {
   state = {
+    user: 'Eric',
+    otherUsers: ['Russ','Scott','Michael'],
     showingInfoWindow: false,
     selectedPlace: {},
     seachTerm: '',
     selectedListItem: '',
-    animateMarker: false
+    animateMarker: false,
+    userSelected: true
   }
+
+  allUsers = ['Eric', 'Russ', 'Scott', 'Michael']
 
   updateSearch = (searchTerm) => {
     this.setState({ 
@@ -24,7 +31,7 @@ class App extends Component {
 
   onListClick = (city) => {
     this.setState({showingInfoWindow: false});
-    const getMarker = markersList.filter( ({ label }) => label === city);
+    const getMarker = markersList[this.state.user].filter( ({ label }) => label === city);
     const selectedPlace = {
       name: city,
       position: {
@@ -72,22 +79,58 @@ class App extends Component {
     }
   }
 
-  render() {
-    const cities = markersList.map(marker => marker.label)
-    const { showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker } = this.state
+  //user selection modal
+  changeUser = () => {
+    this.setState({ userSelected: false})
+  }
 
+  selectUser = (user) => {
+    this.setState({ user });
+    const otherUsers = this.allUsers.filter( item => item !== user)
+    this.setState({ otherUsers });
+    this.setState({ userSelected: true });
+  }
+
+  closeModal = () => this.setState({ userSelected: true });
+
+  render() {
+    const { user, otherUsers, userSelected, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker } = this.state
+    
+    // modal component to allow user selection
     return (
       <div className="App">
+        <Modal
+        open={!userSelected}
+        onBackdropClick={() => this.closeModal()}
+        >
+          <div className='modal'>
+            <div className='button-container'>
+            <h3 className='button-title'>Select Your Profile</h3>
+            {this.allUsers.map(user => {
+              return <Button 
+              key={user}
+              className='button'
+              onClick={ () => this.selectUser(user) }
+              >{user}</Button>
+            })}
+            </div>
+          </div>
+        </Modal>
         <MobileHeader />
-        <Sidebar 
-          cities={cities}
+        <Sidebar
+          user={user}
+          otherUsers={otherUsers} 
+          markersList={markersList}
           searchTerm={searchTerm}
           updateSearch={this.updateSearch}
           selectedListItem={selectedListItem}
           updateListSelection={this.updateListSelection}
+          changeUser={this.changeUser}
         />
         <ErrorBoundary>
-        <Map 
+        <Map
+          user={user} 
+          allUsers={this.allUsers}
           markersList={markersList}
           showingInfoWindow={showingInfoWindow}
           selectedPlace={selectedPlace}
