@@ -41,9 +41,19 @@ span.MuiButton-label-73 span.MuiTouchRipple-root-63 {
 
 .Sidebar {
   width: 25%;
-  min-width: 240px; 
+  min-width: 240px;
   height: 100vh;
   overflow: hidden;
+}
+
+.map {
+    width: 75% !important;
+    /* width: calc(100%-350px) !important; */
+  }
+
+.infoWindow {
+  min-width: 500px;
+  min-height: 350px;
 }
 
 .App-logo {
@@ -113,15 +123,6 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
-
-.map {
-    width: 75% !important
-  }
-
-.infoWindow {
-  min-width: 500px;
-  min-height: 350px;
 }
 
 /* responsive css for the screen widths at which the sidebar is governed by min-width */
@@ -219,5 +220,27 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   }
   .MobileHeaderText {
     font-size: 110%
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .Sidebar {
+  width: 20%;
+}
+
+.map {
+    width: 80% !important;
+    /* width: calc(100%-350px) !important; */
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .Sidebar {
+  width: 17%;
+}
+
+.map {
+    width: 83% !important;
+    /* width: calc(100%-350px) !important; */
   }
 }
