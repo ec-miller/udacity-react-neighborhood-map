@@ -152,7 +152,9 @@ class App extends Component {
             </div>
           </div>
         </Modal>
-        <MobileHeader />
+        <MobileHeader 
+          user={user}
+        />
         <Sidebar
           user={user}
           otherUsers={otherUsers} 
