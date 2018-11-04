@@ -75,6 +75,10 @@ class App extends Component {
   //new trip entry
   closeTripEntry = () => this.setState({ newTripEntry: false });
 
+  addTrip = () => {
+    this.setState({ newTripEntry: true })
+  }
+
   //filter control
   updateSearch = (searchTerm) => {
     this.setState({ 
@@ -173,6 +177,7 @@ class App extends Component {
           selectedListItem={selectedListItem}
           updateListSelection={this.updateListSelection}
           changeUser={this.changeUser}
+          addTrip={this.addTrip}
         />
         <ErrorBoundary>
         <Map
