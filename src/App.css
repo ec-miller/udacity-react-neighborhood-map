@@ -136,6 +136,9 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   .App-header {
     min-height: 25%;
   }
+  .sidebarList {
+    height: 55%;
+}
 }
 
 /* responsive css for mobile devices */
