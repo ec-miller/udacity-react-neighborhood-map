@@ -3,6 +3,7 @@ import Sidebar from './Sidebar.js';
 import ErrorBoundary from './ErrorBoundary.js'
 import Map from './Map.js';
 import MobileHeader from './MobileHeader.js';
+import NewTrip from './NewTrip.js';
 import { markersList } from './constants2.js';
 import './App.css';
 import Modal from '@material-ui/core/Modal';
@@ -19,7 +20,8 @@ class App extends Component {
     animateMarker: false,
     userSelected: false,
     tripData: {},
-    allUsers: ['Eric', 'Russ', 'Scott', 'Michael']
+    allUsers: ['Eric', 'Russ', 'Scott', 'Michael'],
+    newTripEntry: true
   }
   //need to add localStorage for user, userSelected, and the Locations state object
 
@@ -69,6 +71,9 @@ class App extends Component {
   componentWillMount = () => {
     this.initState();
   }
+
+  //new trip entry
+  closeTripEntry = () => this.setState({ newTripEntry: false });
 
   //filter control
   updateSearch = (searchTerm) => {
@@ -131,13 +136,13 @@ class App extends Component {
   }
 
   render() {
-    const { tripData, user, otherUsers, allUsers, userSelected, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker } = this.state;
+    const { tripData, user, otherUsers, allUsers, userSelected, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker, newTripEntry } = this.state;
     // modal component to allow user selection
     return (
       <div className="App">
         <Modal
-        open={!userSelected}
-        onBackdropClick={() => this.closeModal()}
+          open={!userSelected}
+          onBackdropClick={this.closeModal}
         >
           <div className='modal'>
             <div className='button-container'>
@@ -152,6 +157,10 @@ class App extends Component {
             </div>
           </div>
         </Modal>
+        <NewTrip
+          newTripEntry={newTripEntry}
+          closeTripEntry={this.closeTripEntry}
+        />
         <MobileHeader 
           user={user}
         />
