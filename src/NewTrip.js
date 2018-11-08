@@ -7,7 +7,40 @@ class NewTrip extends Component {
   state = {
     location: '',
     lat: '',
-    lng: ''
+    lng: '',
+    goodGeoCode: true,
+    geoCodeApiUp: true
+  }
+
+  updateLocation = (location) => {
+    this.setState({ 
+      location,
+      lat: '',
+      lng: '',
+      goodGeoCode: true,
+      geoCodeApiUp: true 
+    })
+  }
+
+  getGeocode = () => {
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.location}&key=AIzaSyABpmKqdKmqcu7iEZ-JE0r5CgxqFljQsmY`)
+      .then(results => results.json())
+      .then(geoCodes => {
+        if (geoCodes.status === 'OK' && geoCodes.results[0].types.some((type) => type === 'locality')) {
+          this.setState({
+            location: geoCodes.results[0].formatted_address,
+            lat: geoCodes.results[0].geometry.location.lat,
+            lng: geoCodes.results[0].geometry.location.lng
+          })
+        } else {
+          this.setState({ goodGeoCode: false })
+        }
+        console.log(geoCodes.results[0].types);
+      })
+      .catch(error => {
+        console.log('Error: Unable to pull GeoCode via Google Maps API',error);
+        this.setState({ geoCodeApiUp: false });
+      })
   }
 
   render() {
@@ -26,23 +59,36 @@ class NewTrip extends Component {
                 label='Location'
                 placeholder='City, Country'
                 margin='normal'
+                fullWidth
+                value={this.state.location}
+                onChange={ (event) => this.updateLocation(event.target.value)}
+                error={ this.state.goodGeoCode ? this.state.geoCodeApiUp ? false : true : true }
+                helperText={this.state.goodGeoCode ? this.state.geoCodeApiUp ? '' : 'GoogleMaps API is down, please try again later' : 'Please try another location' } 
               ></TextField>
             </div>
             <div className='get-geocode'>
-              <Button variant='outlined' color='secondary'>Get Geocode</Button>
+              <Button 
+                variant='outlined' 
+                color='secondary'
+                onClick={ () => this.getGeocode()}
+                >Get Geocode</Button>
             </div>
             <div className='input-field'>
               <TextField
                 id="lat"
                 label='Latitude'
                 margin='normal'
+                disabled
+                value={this.state.lat}
               ></TextField>
             </div>
             <div className='input-field'>
               <TextField
                 id="lng"
                 label='Longitude'
-                margin='normal'
+                margin='normal'                
+                disabled
+                value={this.state.lng}
               ></TextField>
             </div>
             <div className='input-field-long'>

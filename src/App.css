@@ -24,6 +24,10 @@
   width: 100%;
 }
 
+.input-field-long input {
+  margin-right: 2em;
+}
+
 .get-geocode {
   margin: auto;
 }
