@@ -13,6 +13,7 @@ class App extends Component {
   state = {
     user: 'Eric',
     otherUsers: ['Russ','Scott','Michael'],
+    allUsers: ['Eric', 'Russ', 'Scott', 'Michael'],
     showingInfoWindow: false,
     selectedPlace: {},
     seachTerm: '',
@@ -20,7 +21,6 @@ class App extends Component {
     animateMarker: false,
     userSelected: false,
     tripData: {},
-    allUsers: ['Eric', 'Russ', 'Scott', 'Michael'],
     newTripEntry: true
   }
   //need to add localStorage for user, userSelected, and the Locations state object
@@ -77,6 +77,19 @@ class App extends Component {
 
   addTrip = () => {
     this.setState({ newTripEntry: true })
+  }
+
+  addTripData = (location,lat,lng,notes) => {
+    const newTripData = {
+      label: location,
+      lat: lat,
+      lng: lng,
+      notes: notes
+    };
+    const tripData = this.state.tripData;
+    tripData[this.state.user].push(newTripData);
+    this.setState({ tripData })
+    localStorage.setItem('tripData', JSON.stringify(tripData));
   }
 
   //filter control
@@ -164,6 +177,7 @@ class App extends Component {
         <NewTrip
           newTripEntry={newTripEntry}
           closeTripEntry={this.closeTripEntry}
+          addTripData={this.addTripData}
         />
         <MobileHeader 
           user={user}

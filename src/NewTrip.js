@@ -8,6 +8,7 @@ class NewTrip extends Component {
     location: '',
     lat: '',
     lng: '',
+    notes: '',
     goodGeoCode: true,
     geoCodeApiUp: true
   }
@@ -17,9 +18,14 @@ class NewTrip extends Component {
       location,
       lat: '',
       lng: '',
+      notes: '',
       goodGeoCode: true,
       geoCodeApiUp: true 
     })
+  }
+
+  updateNotes = (notes) => {
+    this.setState({ notes })
   }
 
   getGeocode = () => {
@@ -44,7 +50,7 @@ class NewTrip extends Component {
   }
 
   render() {
-    const { newTripEntry, closeTripEntry } = this.props;
+    const { newTripEntry, closeTripEntry, addTripData } = this.props;
 
     return (
       <Modal
@@ -100,10 +106,21 @@ class NewTrip extends Component {
                 fullWidth
                 placeholder='Deary Diary...'
                 margin='normal'
+                value={this.state.notes}
+                onChange={ (event) => this.updateNotes(event.target.value) }
               ></TextField>
             </div>
             <div className='add-new-trip'>
-              <Button variant='outlined' color='primary'>Add New Trip</Button>
+              <Button 
+                variant='outlined' 
+                color='primary'
+                onClick={ () => {
+                  console.log(this.state.location,this.state.lat,this.state.lng,this.state.notes);
+                  addTripData(this.state.location,this.state.lat,this.state.lng,this.state.notes);
+                  this.updateLocation('');
+                  closeTripEntry();
+                  }}
+              >Add New Trip</Button>
             </div>
 
           </form>
