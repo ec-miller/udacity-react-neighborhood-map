@@ -22,13 +22,13 @@ export class MapContainer extends React.Component {
   compileCities() {
     const allCities = [];
     this.props.allUsers.forEach((user) => {
-      this.props.markersList[user].forEach((marker) => {
+      this.props.tripData[user].forEach((marker) => {
         allCities.push(marker.label)
       });
     });
     return allCities;
   }
-
+  //need to call getPhotoDetails after adding a new trip - also need to cache these results per city
   getPhotoDetails = (cities) => {
     cities.forEach( (city) => {
       fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0c0162b8a07a500a529e6ed1faf1b191&tags=${city}&sort=interestingness-desc&privacy_filter=1&media=photos&has_geo=&per_page=20&format=json&nojsoncallback=1`)
@@ -65,17 +65,23 @@ export class MapContainer extends React.Component {
     this.getPhotoDetails(cities);
   }
 
+  // shouldComponentUpdate(prevProps, prepState) {
+  //   if (prevProps.tripData)
+  //   const cities = this.compileCities();
+  //   this.getPhotoDetails(cities);
+  // }
+
   render() {
-    const { showingInfoWindow, user, markersList, selectedPlace, onMapClicked, searchTerm, updateListSelection, animateMarker } = this.props
+    const { showingInfoWindow, user, tripData, selectedPlace, onMapClicked, searchTerm, updateListSelection, animateMarker } = this.props
     const selectedPhoto = this.state.photoDetails.filter(photo => photo.name === selectedPlace.name)
     const randomPhoto = Math.floor(Math.random() * Math.floor(20))
     const searchRegex = RegExp(searchTerm, 'i')
-    const myMarkersList = markersList[user]
+    const myTripData = tripData[user]
     let markers
     if (searchTerm) {
-      markers = myMarkersList.filter(marker => searchRegex.test(marker.label))
+      markers = myTripData.filter(marker => searchRegex.test(marker.label))
     } else {
-      markers = myMarkersList;
+      markers = myTripData;
     }
 
     return (

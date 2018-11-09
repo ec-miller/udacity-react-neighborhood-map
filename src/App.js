@@ -21,7 +21,7 @@ class App extends Component {
     animateMarker: false,
     userSelected: false,
     tripData: {},
-    newTripEntry: true
+    newTripEntry: false
   }
   //need to add localStorage for user, userSelected, and the Locations state object
 
@@ -185,7 +185,7 @@ class App extends Component {
         <Sidebar
           user={user}
           otherUsers={otherUsers} 
-          markersList={tripData}
+          tripData={tripData}
           searchTerm={searchTerm}
           updateSearch={this.updateSearch}
           selectedListItem={selectedListItem}
@@ -197,7 +197,7 @@ class App extends Component {
         <Map
           user={user} 
           allUsers={allUsers}
-          markersList={tripData}
+          tripData={tripData}
           showingInfoWindow={showingInfoWindow}
           selectedPlace={selectedPlace}
           updateListSelection={this.updateListSelection}

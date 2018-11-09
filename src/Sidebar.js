@@ -62,8 +62,8 @@ const Item = ({ city, travelBuddies, sharedLocales, updateListSelection, selecte
   </ListItem>             
 )
 
-const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, selectedListItem, updateListSelection, changeUser, addTrip }) => {
-  const cities = markersList[user].map(marker => marker.label);
+const Sidebar = ({ user, otherUsers, tripData, searchTerm, updateSearch, selectedListItem, updateListSelection, changeUser, addTrip }) => {
+  const cities = tripData[user].map(marker => marker.label);
   const searchRegex = RegExp(searchTerm,'i');
   const searchCities = (() => {
     if (searchTerm) {
@@ -78,7 +78,7 @@ const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, sele
   let travelBuddies = {};
   let sharedLocales = [];
   otherUsers.forEach(otherUser => {
-    markersList[otherUser].forEach(marker => {
+    tripData[otherUser].forEach(marker => {
       cities.forEach(city => {
         if (city === marker.label) {
           if (!travelBuddies[city]) {
