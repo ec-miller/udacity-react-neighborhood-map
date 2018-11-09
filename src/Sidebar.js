@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import CheckIcon from '@material-ui/icons/Check';
 import PersonIcon from '@material-ui/icons/Person';
 import PeopleIcon from '@material-ui/icons/People';
+import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 
@@ -61,8 +62,8 @@ const Item = ({ city, travelBuddies, sharedLocales, updateListSelection, selecte
   </ListItem>             
 )
 
-const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, selectedListItem, updateListSelection, changeUser }) => {
-  const cities = markersList[user].map(marker => marker.label);
+const Sidebar = ({ user, otherUsers, tripData, searchTerm, updateSearch, selectedListItem, updateListSelection, changeUser, addTrip }) => {
+  const cities = tripData[user].map(marker => marker.label);
   const searchRegex = RegExp(searchTerm,'i');
   const searchCities = (() => {
     if (searchTerm) {
@@ -77,7 +78,7 @@ const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, sele
   let travelBuddies = {};
   let sharedLocales = [];
   otherUsers.forEach(otherUser => {
-    markersList[otherUser].forEach(marker => {
+    tripData[otherUser].forEach(marker => {
       cities.forEach(city => {
         if (city === marker.label) {
           if (!travelBuddies[city]) {
@@ -122,6 +123,10 @@ const Sidebar = ({ user, otherUsers, markersList, searchTerm, updateSearch, sele
           style={{ color: 'green', float: 'left', marginTop: '.4em', marginLeft: '.5em' }}
           onClick={changeUser}
         ></PeopleIcon>
+        <AddCircleOutline
+          style={{ color: 'green', float: 'right', marginTop: '.4em', marginRight: '.5em' }}
+          onClick={addTrip}
+        ></AddCircleOutline>
       </div>
     </div>
   );

@@ -4,9 +4,40 @@
   transform: translate(-50%,-50%);
   position: absolute;
   width: 45%;
-  height: 45%;
+  min-height: 45%;
+  max-height: 65%;
   background-color:  white;
   box-shadow: 1em
+}
+
+.trip-form {
+  margin: 1em;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input-field {
+  width: 50%;
+}
+
+.input-field-long {
+  width: 100%;
+}
+
+.input-field-long input {
+  margin-right: 2em;
+}
+
+.get-geocode {
+  margin: auto;
+}
+
+.add-new-trip {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2em;
 }
 
 .button-container {

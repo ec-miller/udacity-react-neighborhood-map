@@ -3,6 +3,7 @@ import Sidebar from './Sidebar.js';
 import ErrorBoundary from './ErrorBoundary.js'
 import Map from './Map.js';
 import MobileHeader from './MobileHeader.js';
+import NewTrip from './NewTrip.js';
 import { markersList } from './constants2.js';
 import './App.css';
 import Modal from '@material-ui/core/Modal';
@@ -12,6 +13,7 @@ class App extends Component {
   state = {
     user: 'Eric',
     otherUsers: ['Russ','Scott','Michael'],
+    allUsers: ['Eric', 'Russ', 'Scott', 'Michael'],
     showingInfoWindow: false,
     selectedPlace: {},
     seachTerm: '',
@@ -19,7 +21,7 @@ class App extends Component {
     animateMarker: false,
     userSelected: false,
     tripData: {},
-    allUsers: ['Eric', 'Russ', 'Scott', 'Michael']
+    newTripEntry: false
   }
   //need to add localStorage for user, userSelected, and the Locations state object
 
@@ -68,6 +70,26 @@ class App extends Component {
 
   componentWillMount = () => {
     this.initState();
+  }
+
+  //new trip entry
+  closeTripEntry = () => this.setState({ newTripEntry: false });
+
+  addTrip = () => {
+    this.setState({ newTripEntry: true })
+  }
+
+  addTripData = (location,lat,lng,notes) => {
+    const newTripData = {
+      label: location,
+      lat: lat,
+      lng: lng,
+      notes: notes
+    };
+    const tripData = JSON.parse(JSON.stringify(this.state.tripData));
+    tripData[this.state.user].push(newTripData);
+    this.setState({ tripData })
+    localStorage.setItem('tripData', JSON.stringify(tripData));
   }
 
   //filter control
@@ -131,13 +153,13 @@ class App extends Component {
   }
 
   render() {
-    const { tripData, user, otherUsers, allUsers, userSelected, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker } = this.state;
+    const { tripData, user, otherUsers, allUsers, userSelected, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker, newTripEntry } = this.state;
     // modal component to allow user selection
     return (
       <div className="App">
         <Modal
-        open={!userSelected}
-        onBackdropClick={() => this.closeModal()}
+          open={!userSelected}
+          onBackdropClick={this.closeModal}
         >
           <div className='modal'>
             <div className='button-container'>
@@ -152,24 +174,30 @@ class App extends Component {
             </div>
           </div>
         </Modal>
+        <NewTrip
+          newTripEntry={newTripEntry}
+          closeTripEntry={this.closeTripEntry}
+          addTripData={this.addTripData}
+        />
         <MobileHeader 
           user={user}
         />
         <Sidebar
           user={user}
           otherUsers={otherUsers} 
-          markersList={tripData}
+          tripData={tripData}
           searchTerm={searchTerm}
           updateSearch={this.updateSearch}
           selectedListItem={selectedListItem}
           updateListSelection={this.updateListSelection}
           changeUser={this.changeUser}
+          addTrip={this.addTrip}
         />
         <ErrorBoundary>
         <Map
           user={user} 
           allUsers={allUsers}
-          markersList={tripData}
+          tripData={tripData}
           showingInfoWindow={showingInfoWindow}
           selectedPlace={selectedPlace}
           updateListSelection={this.updateListSelection}

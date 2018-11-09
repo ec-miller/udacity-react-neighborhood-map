@@ -11,7 +11,7 @@ export class MapContainer extends React.Component {
   }
   state = {
     photoDetails: [],
-    flickrAPI: true
+    flickrAPI: false
   }  
 
   style = {
@@ -22,36 +22,51 @@ export class MapContainer extends React.Component {
   compileCities() {
     const allCities = [];
     this.props.allUsers.forEach((user) => {
-      this.props.markersList[user].forEach((marker) => {
+      this.props.tripData[user].forEach((marker) => {
         allCities.push(marker.label)
       });
     });
     return allCities;
   }
-
+  //need to call getPhotoDetails after adding a new trip - also need to cache these results per city
   getPhotoDetails = (cities) => {
     cities.forEach( (city) => {
-      fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0c0162b8a07a500a529e6ed1faf1b191&tags=${city}&sort=interestingness-desc&privacy_filter=1&media=photos&has_geo=&per_page=20&format=json&nojsoncallback=1`)
-        .then( results => {
-          return results.json();
-        })
-        .then( photoDetails => {
-          if (photoDetails.stat === 'ok') {
-            this.setState(state => ({
-              photoDetails: [
-                ...state.photoDetails,
-                { name: city, photos: photoDetails.photos.photo }
-              ]
-            }));
-          } else {
-            console.log('Error: Unable to pull photos via Flickr API',photoDetails.code,photoDetails.message);
+      const cachedFlickrData = localStorage.getItem(city);
+      if (!cachedFlickrData) {
+        fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0c0162b8a07a500a529e6ed1faf1b191&tags=${city}&sort=interestingness-desc&privacy_filter=1&media=photos&has_geo=&per_page=20&format=json&nojsoncallback=1`)
+          .then(results => {
+            return results.json();
+          })
+          .then(photoDetails => {
+            if (photoDetails.stat === 'ok') {
+              this.setState(state => ({
+                photoDetails: [
+                  ...state.photoDetails,
+                  { name: city, photos: photoDetails.photos.photo }
+                ]
+              }), () => this.setState({ flickrAPI: true }));
+              localStorage.setItem(city, JSON.stringify({ name: city, photos: photoDetails.photos.photo }));
+            } else {
+              console.log('Error: Unable to pull photos via Flickr API', photoDetails.code, photoDetails.message);
+              this.setState({ flickrAPI: false });
+            }
+          })
+          .catch(error => {
+            console.log('Error: Unable to pull photos via Flickr API', error);
             this.setState({ flickrAPI: false });
-          }
-        })
-        .catch(error => {
-          console.log('Error: Unable to pull photos via Flickr API',error);
-          this.setState({ flickrAPI: false });
-        }) 
+          })
+      } else {
+        const parsedFlickrCache = JSON.parse(cachedFlickrData)
+        console.log(parsedFlickrCache)
+        console.log('heyh')
+        this.setState(state => ({
+          photoDetails: [
+            ...state.photoDetails,
+            { ...parsedFlickrCache }
+          ]
+        }), () => this.setState({ flickrAPI: true }));
+      }
+      
     })
   }
 
@@ -65,17 +80,24 @@ export class MapContainer extends React.Component {
     this.getPhotoDetails(cities);
   }
 
+  componentDidUpdate(nextProps) {
+    if (nextProps.tripData !== this.props.tripData) {
+      const cities = this.compileCities();
+      this.getPhotoDetails(cities);
+    }
+  }
+
   render() {
-    const { showingInfoWindow, user, markersList, selectedPlace, onMapClicked, searchTerm, updateListSelection, animateMarker } = this.props
+    const { showingInfoWindow, user, tripData, selectedPlace, onMapClicked, searchTerm, updateListSelection, animateMarker } = this.props
     const selectedPhoto = this.state.photoDetails.filter(photo => photo.name === selectedPlace.name)
     const randomPhoto = Math.floor(Math.random() * Math.floor(20))
     const searchRegex = RegExp(searchTerm, 'i')
-    const myMarkersList = markersList[user]
+    const myTripData = tripData[user]
     let markers
     if (searchTerm) {
-      markers = myMarkersList.filter(marker => searchRegex.test(marker.label))
+      markers = myTripData.filter(marker => searchRegex.test(marker.label))
     } else {
-      markers = myMarkersList;
+      markers = myTripData;
     }
 
     return (
