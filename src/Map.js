@@ -31,6 +31,13 @@ export class MapContainer extends React.Component {
   //need to call getPhotoDetails after adding a new trip - also need to cache these results per city
   getPhotoDetails = (cities) => {
     cities.forEach( (city) => {
+      // const cachedFlickrData = localStorage.getItem(city);
+      // if (!cachedFlickrData) {
+      //   this.setState({ tripData: markersList });
+      //   localStorage.setItem('tripData', JSON.stringify(markersList));
+      // } else {
+      //   this.setState({ tripData: JSON.parse(cachedFlickrData) })
+      // }
       fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=0c0162b8a07a500a529e6ed1faf1b191&tags=${city}&sort=interestingness-desc&privacy_filter=1&media=photos&has_geo=&per_page=20&format=json&nojsoncallback=1`)
         .then( results => {
           return results.json();
@@ -65,11 +72,12 @@ export class MapContainer extends React.Component {
     this.getPhotoDetails(cities);
   }
 
-  // shouldComponentUpdate(prevProps, prepState) {
-  //   if (prevProps.tripData)
-  //   const cities = this.compileCities();
-  //   this.getPhotoDetails(cities);
-  // }
+  componentDidUpdate(nextProps) {
+    if (nextProps.tripData !== this.props.tripData) {
+      const cities = this.compileCities();
+      this.getPhotoDetails(cities);
+    }
+  }
 
   render() {
     const { showingInfoWindow, user, tripData, selectedPlace, onMapClicked, searchTerm, updateListSelection, animateMarker } = this.props

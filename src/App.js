@@ -86,7 +86,7 @@ class App extends Component {
       lng: lng,
       notes: notes
     };
-    const tripData = this.state.tripData;
+    const tripData = JSON.parse(JSON.stringify(this.state.tripData));
     tripData[this.state.user].push(newTripData);
     this.setState({ tripData })
     localStorage.setItem('tripData', JSON.stringify(tripData));
