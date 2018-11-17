@@ -175,7 +175,7 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
 /* responsive css for mobile devices */
 @media screen and (max-width: 780px) {
   .App {
-  display: block;
+    display: block;
   }
   .App-header {
     display: none;
@@ -235,6 +235,12 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
 
 /* responsive css for infoWindows on mobiles */
 @media screen and (max-width: 420px) {
+  .MobileHeader {
+    height: 10%;
+  }
+  .map {
+    height: 90% !important;
+  }
   .infoWindow {
     min-width: 300px;
     min-height: 200px;
