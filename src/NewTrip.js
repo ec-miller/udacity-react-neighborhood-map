@@ -114,11 +114,12 @@ class NewTrip extends Component {
               <Button 
                 variant='outlined' 
                 color='primary'
+                disabled={ this.state.location && this.state.lat ? false : true}
                 onClick={ () => {
-                  console.log(this.state.location,this.state.lat,this.state.lng,this.state.notes);
-                  addTripData(this.state.location,this.state.lat,this.state.lng,this.state.notes);
-                  this.updateLocation('');
-                  closeTripEntry();
+                    console.log(this.state.location, this.state.lat, this.state.lng, this.state.notes);
+                    addTripData(this.state.location, this.state.lat, this.state.lng, this.state.notes);
+                    this.updateLocation('');
+                    closeTripEntry();
                   }}
               >Add New Trip</Button>
             </div>
