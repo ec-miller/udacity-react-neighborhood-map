@@ -180,6 +180,10 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   .App-header {
     display: none;
   }
+  .modal {
+    width: 70%;
+    max-height: 70%;
+  }
   .MobileHeader {
     position: relative;
     height: 10vh;
@@ -243,6 +247,10 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   .MobileHeaderText {
     font-size: 130%
   }
+  .modal {
+    width: 90%;
+    max-height: 90%;
+  }
 }
 
 @media screen and (max-width: 360px) {
@@ -260,6 +268,7 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   }
 }
 
+/* sidebar controls for larger desktop screens */
 @media screen and (min-width: 1300px) {
   .Sidebar {
   width: 20%;
