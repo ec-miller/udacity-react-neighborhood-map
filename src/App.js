@@ -4,6 +4,7 @@ import ErrorBoundary from './ErrorBoundary.js'
 import Map from './Map.js';
 import MobileHeader from './MobileHeader.js';
 import NewTrip from './NewTrip.js';
+import EditTrip from './EditTrip.js';
 import { markersList } from './constants2.js';
 import './App.css';
 import Modal from '@material-ui/core/Modal';
@@ -21,7 +22,8 @@ class App extends Component {
     animateMarker: false,
     userSelected: false,
     tripData: {},
-    newTripEntry: false
+    newTripEntry: false,
+    editTripEntry: true
   }
   //need to add localStorage for user, userSelected, and the Locations state object
 
@@ -92,6 +94,13 @@ class App extends Component {
     localStorage.setItem('tripData', JSON.stringify(tripData));
   }
 
+  //editTrip
+  closeEditTripEntry = () => this.setState({ editTripEntry: false });
+
+  editTrip = () => {
+    this.setState({ editTripEntry: true})
+  }
+
   //filter control
   updateSearch = (searchTerm) => {
     this.setState({ 
@@ -153,7 +162,7 @@ class App extends Component {
   }
 
   render() {
-    const { tripData, user, otherUsers, allUsers, userSelected, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker, newTripEntry } = this.state;
+    const { tripData, user, otherUsers, allUsers, userSelected, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker, newTripEntry, editTripEntry } = this.state;
     // modal component to allow user selection
     return (
       <div className="App">
@@ -179,6 +188,11 @@ class App extends Component {
           closeTripEntry={this.closeTripEntry}
           addTripData={this.addTripData}
         />
+        <EditTrip
+          editTripEntry={editTripEntry}
+          closeEditTripEntry={this.closeEditTripEntry}
+          editTripData={this.closeEditTripEntry}
+        />
         <MobileHeader 
           user={user}
         />
@@ -192,6 +206,7 @@ class App extends Component {
           updateListSelection={this.updateListSelection}
           changeUser={this.changeUser}
           addTrip={this.addTrip}
+          editTrip={this.editTrip}
         />
         <ErrorBoundary>
         <Map

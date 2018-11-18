@@ -7,12 +7,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import CheckIcon from '@material-ui/icons/Check';
 import PersonIcon from '@material-ui/icons/Person';
 import PeopleIcon from '@material-ui/icons/People';
+import EditIcon from '@material-ui/icons/Edit';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 
 //need to add hover modal that indicates which buddies have been to a place you've been to
-const Item = ({ city, travelBuddies, sharedLocales, updateListSelection, selectedListItem }) => (
+const Item = ({ city, travelBuddies, sharedLocales, updateListSelection, selectedListItem, editTrip }) => (
   <ListItem 
     divider
     button
@@ -24,6 +25,11 @@ const Item = ({ city, travelBuddies, sharedLocales, updateListSelection, selecte
     selected={ selectedListItem === city }
   >
     <ListItemText primary={city} />
+    <ListItemIcon id={city}>
+      <EditIcon
+        onClick={editTrip}
+      />
+    </ListItemIcon>
     {sharedLocales.some((locale) => locale === city) ?
       <Tooltip
         title={
@@ -62,7 +68,7 @@ const Item = ({ city, travelBuddies, sharedLocales, updateListSelection, selecte
   </ListItem>             
 )
 
-const Sidebar = ({ user, otherUsers, tripData, searchTerm, updateSearch, selectedListItem, updateListSelection, changeUser, addTrip }) => {
+const Sidebar = ({ user, otherUsers, tripData, searchTerm, updateSearch, selectedListItem, updateListSelection, changeUser, addTrip, editTrip }) => {
   const cities = tripData[user].map(marker => marker.label);
   const searchRegex = RegExp(searchTerm,'i');
   const searchCities = (() => {
@@ -113,7 +119,8 @@ const Sidebar = ({ user, otherUsers, tripData, searchTerm, updateSearch, selecte
               sharedLocales={sharedLocales}
               updateListSelection={updateListSelection}
               selectedListItem={selectedListItem}
-              key={city} 
+              key={city}
+              editTrip={editTrip} 
             />
           )} 
         </List>
