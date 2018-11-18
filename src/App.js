@@ -23,7 +23,7 @@ class App extends Component {
     userSelected: false,
     tripData: {},
     newTripEntry: false,
-    editTripEntry: true
+    editTripEntry: false
   }
   //need to add localStorage for user, userSelected, and the Locations state object
 
@@ -95,7 +95,11 @@ class App extends Component {
   }
 
   //editTrip
-  closeEditTripEntry = () => this.setState({ editTripEntry: false });
+  closeEditTripEntry = () => this.setState({ 
+    editTripEntry: false,
+    showingInfoWindow: false,
+    selectedListItem: ''
+   });
 
   editTrip = () => {
     this.setState({ editTripEntry: true})
@@ -118,7 +122,8 @@ class App extends Component {
       position: {
         lat: getMarker[0].lat,
         lng: getMarker[0].lng
-      }
+      },
+      notes: getMarker[0].notes
     };
     this.setState({selectedPlace: selectedPlace});
     //setTimeout is applied to showingInfoWindow so that the Window will 
@@ -192,6 +197,7 @@ class App extends Component {
           editTripEntry={editTripEntry}
           closeEditTripEntry={this.closeEditTripEntry}
           editTripData={this.closeEditTripEntry}
+          selectedPlace={selectedPlace}
         />
         <MobileHeader 
           user={user}

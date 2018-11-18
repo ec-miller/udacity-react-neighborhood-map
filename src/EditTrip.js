@@ -5,13 +5,17 @@ import Button from '@material-ui/core/Button';
 
 class EditTrip extends Component {
   state = {
-    location: '',
-    lat: '',
-    lng: '',
     notes: '',
-    goodGeoCode: true,
-    geoCodeApiUp: true,
     changed: false
+  }
+
+  initState = () => {
+    const notes = this.props.selectedPlace.notes;
+    if (notes) {
+      this.setState({
+        notes
+      });
+    }
   }
 
   updateLocation = (location) => {
@@ -29,8 +33,14 @@ class EditTrip extends Component {
     this.setState({ notes, changed: true })
   }
 
+  componentDidUpdate = (nextProps) => {
+    if (nextProps.selectedPlace !== this.props.selectedPlace) {
+      this.initState();
+    }
+  }
+
   render() {
-    const { editTripEntry, closeEditTripEntry, editTripData } = this.props;
+    const { editTripEntry, closeEditTripEntry, editTripData, selectedPlace } = this.props;
 
     return (
       <Modal
@@ -47,7 +57,7 @@ class EditTrip extends Component {
                 margin='normal'
                 fullWidth
                 disabled
-                value={this.state.location}
+                value={ editTripEntry ? selectedPlace.name : '' }
               ></TextField>
             </div>
             <div className='input-field'>
@@ -56,7 +66,7 @@ class EditTrip extends Component {
                 label='Latitude'
                 margin='normal'
                 disabled
-                value={this.state.lat}
+                value={ editTripEntry ? selectedPlace.position.lat : '' }
               ></TextField>
             </div>
             <div className='input-field'>
@@ -65,7 +75,7 @@ class EditTrip extends Component {
                 label='Longitude'
                 margin='normal'                
                 disabled
-                value={this.state.lng}
+                value={ editTripEntry ? selectedPlace.position.lng : '' }
               ></TextField>
             </div>
             <div className='input-field-long'>
