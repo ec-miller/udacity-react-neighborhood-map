@@ -32,6 +32,7 @@ class NewTrip extends Component {
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.location}&key=AIzaSyABpmKqdKmqcu7iEZ-JE0r5CgxqFljQsmY`)
       .then(results => results.json())
       .then(geoCodes => {
+        // console.log(geoCodes.results[0]);
         if (geoCodes.status === 'OK' && geoCodes.results[0].types.some((type) => type === 'locality')) {
           this.setState({
             location: geoCodes.results[0].formatted_address,
@@ -41,7 +42,6 @@ class NewTrip extends Component {
         } else {
           this.setState({ goodGeoCode: false })
         }
-        console.log(geoCodes.results[0].types);
       })
       .catch(error => {
         console.log('Error: Unable to pull GeoCode via Google Maps API',error);
@@ -116,7 +116,6 @@ class NewTrip extends Component {
                 color='primary'
                 disabled={ this.state.location && this.state.lat ? false : true}
                 onClick={ () => {
-                    console.log(this.state.location, this.state.lat, this.state.lng, this.state.notes);
                     addTripData(this.state.location, this.state.lat, this.state.lng, this.state.notes);
                     this.updateLocation('');
                     closeTripEntry();
