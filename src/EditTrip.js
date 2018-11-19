@@ -11,11 +11,9 @@ class EditTrip extends Component {
 
   initState = () => {
     const notes = this.props.selectedPlace.notes;
-    if (notes) {
-      this.setState({
-        notes
-      });
-    }
+    this.setState({
+      notes
+    });
   }
 
   updateLocation = (location) => {
