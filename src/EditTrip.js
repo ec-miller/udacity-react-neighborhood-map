@@ -16,17 +16,6 @@ class EditTrip extends Component {
     });
   }
 
-  updateLocation = (location) => {
-    this.setState({ 
-      location,
-      lat: '',
-      lng: '',
-      notes: '',
-      goodGeoCode: true,
-      geoCodeApiUp: true 
-    })
-  }
-
   updateNotes = (notes) => {
     this.setState({ notes, changed: true })
   }
@@ -38,7 +27,7 @@ class EditTrip extends Component {
   }
 
   render() {
-    const { editTripEntry, closeEditTripEntry, editTripData, selectedPlace } = this.props;
+    const { editTripEntry, closeEditTripEntry, editTripData, deleteTripData, selectedPlace } = this.props;
 
     return (
       <Modal
@@ -95,10 +84,9 @@ class EditTrip extends Component {
                 color='primary'
                 disabled={ this.state.changed ? false : true}
                 onClick={ () => {
-                    editTripData(this.state.location, this.state.lat, this.state.lng, this.state.notes);
-                    this.updateLocation('');
-                    closeEditTripEntry();
-                  }}
+                  editTripData(selectedPlace.name, this.state.notes);
+                  closeEditTripEntry();
+                }}
               >Edit Trip</Button>
             </div>
             <div className='edit-trip'>
@@ -106,10 +94,9 @@ class EditTrip extends Component {
                 variant='outlined' 
                 color='secondary'
                 onClick={ () => {
-                    editTripData(this.state.location, this.state.lat, this.state.lng, this.state.notes);
-                    this.updateLocation('');
-                    closeEditTripEntry();
-                  }}
+                  deleteTripData(selectedPlace.name);
+                  closeEditTripEntry();
+                }}
               >Delete Trip</Button>
             </div>
           </form>

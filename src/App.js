@@ -105,6 +105,32 @@ class App extends Component {
     this.setState({ editTripEntry: true})
   }
 
+  editTripData = (location,notes) => {
+    const tripData = JSON.parse(JSON.stringify(this.state.tripData));
+    let cityIndex = -1;
+    tripData[this.state.user].forEach( (city,index) => {
+      if (city.label === location) {
+        cityIndex = index;
+      }
+    });
+    tripData[this.state.user][cityIndex].notes = notes;
+    this.setState({ tripData });
+    localStorage.setItem('tripData', JSON.stringify(tripData));
+  }
+
+  deleteTripData = (location) => {;
+    const tripData = JSON.parse(JSON.stringify(this.state.tripData));
+    let cityIndex = -1;
+    tripData[this.state.user].forEach( (city,index) => {
+      if (city.label === location) {
+        cityIndex = index;
+      }
+    });
+    tripData[this.state.user].splice(cityIndex,1);
+    this.setState({ tripData });
+    localStorage.setItem('tripData', JSON.stringify(tripData));
+  }
+
   //filter control
   updateSearch = (searchTerm) => {
     this.setState({ 
@@ -196,7 +222,8 @@ class App extends Component {
         <EditTrip
           editTripEntry={editTripEntry}
           closeEditTripEntry={this.closeEditTripEntry}
-          editTripData={this.closeEditTripEntry}
+          editTripData={this.editTripData}
+          deleteTripData={this.deleteTripData}
           selectedPlace={selectedPlace}
         />
         <MobileHeader 
