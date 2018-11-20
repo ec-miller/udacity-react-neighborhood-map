@@ -57,8 +57,6 @@ export class MapContainer extends React.Component {
           })
       } else {
         const parsedFlickrCache = JSON.parse(cachedFlickrData)
-        console.log(parsedFlickrCache)
-        console.log('heyh')
         this.setState(state => ({
           photoDetails: [
             ...state.photoDetails,

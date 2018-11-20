@@ -4,6 +4,7 @@ import ErrorBoundary from './ErrorBoundary.js'
 import Map from './Map.js';
 import MobileHeader from './MobileHeader.js';
 import NewTrip from './NewTrip.js';
+import EditTrip from './EditTrip.js';
 import { markersList } from './constants2.js';
 import './App.css';
 import Modal from '@material-ui/core/Modal';
@@ -21,7 +22,8 @@ class App extends Component {
     animateMarker: false,
     userSelected: false,
     tripData: {},
-    newTripEntry: false
+    newTripEntry: false,
+    editTripEntry: false
   }
   //need to add localStorage for user, userSelected, and the Locations state object
 
@@ -92,6 +94,43 @@ class App extends Component {
     localStorage.setItem('tripData', JSON.stringify(tripData));
   }
 
+  //editTrip
+  closeEditTripEntry = () => this.setState({ 
+    editTripEntry: false,
+    showingInfoWindow: false,
+    selectedListItem: ''
+   });
+
+  editTrip = () => {
+    this.setState({ editTripEntry: true})
+  }
+
+  editTripData = (location,notes) => {
+    const tripData = JSON.parse(JSON.stringify(this.state.tripData));
+    let cityIndex = -1;
+    tripData[this.state.user].forEach( (city,index) => {
+      if (city.label === location) {
+        cityIndex = index;
+      }
+    });
+    tripData[this.state.user][cityIndex].notes = notes;
+    this.setState({ tripData });
+    localStorage.setItem('tripData', JSON.stringify(tripData));
+  }
+
+  deleteTripData = (location) => {;
+    const tripData = JSON.parse(JSON.stringify(this.state.tripData));
+    let cityIndex = -1;
+    tripData[this.state.user].forEach( (city,index) => {
+      if (city.label === location) {
+        cityIndex = index;
+      }
+    });
+    tripData[this.state.user].splice(cityIndex,1);
+    this.setState({ tripData });
+    localStorage.setItem('tripData', JSON.stringify(tripData));
+  }
+
   //filter control
   updateSearch = (searchTerm) => {
     this.setState({ 
@@ -109,7 +148,8 @@ class App extends Component {
       position: {
         lat: getMarker[0].lat,
         lng: getMarker[0].lng
-      }
+      },
+      notes: getMarker[0].notes
     };
     this.setState({selectedPlace: selectedPlace});
     //setTimeout is applied to showingInfoWindow so that the Window will 
@@ -153,7 +193,7 @@ class App extends Component {
   }
 
   render() {
-    const { tripData, user, otherUsers, allUsers, userSelected, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker, newTripEntry } = this.state;
+    const { tripData, user, otherUsers, allUsers, userSelected, showingInfoWindow, selectedPlace, searchTerm, selectedListItem, animateMarker, newTripEntry, editTripEntry } = this.state;
     // modal component to allow user selection
     return (
       <div className="App">
@@ -179,6 +219,13 @@ class App extends Component {
           closeTripEntry={this.closeTripEntry}
           addTripData={this.addTripData}
         />
+        <EditTrip
+          editTripEntry={editTripEntry}
+          closeEditTripEntry={this.closeEditTripEntry}
+          editTripData={this.editTripData}
+          deleteTripData={this.deleteTripData}
+          selectedPlace={selectedPlace}
+        />
         <MobileHeader 
           user={user}
         />
@@ -192,6 +239,7 @@ class App extends Component {
           updateListSelection={this.updateListSelection}
           changeUser={this.changeUser}
           addTrip={this.addTrip}
+          editTrip={this.editTrip}
         />
         <ErrorBoundary>
         <Map
