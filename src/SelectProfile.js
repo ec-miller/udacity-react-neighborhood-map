@@ -48,7 +48,7 @@ class SelectProfile extends Component {
               })}
             </div>
             <AddCircleOutline
-              style={{ color: 'green', float: 'right', marginTop: '.4em', marginRight: '.5em' }}
+              style={{ color: 'green', float: 'right', marginTop: '.4em', marginRight: '.5em', marginBottom: '1em' }}
               onClick={() => this.openNameEntry()}
             ></AddCircleOutline>
           </div>
