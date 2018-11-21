@@ -69,6 +69,8 @@ class SelectProfile extends Component {
               value={this.state.name}
               onChange={ (event) => this.updateName(event.target.value)}
               fullWidth
+              error={allUsers.some(user => user === this.state.name) ? true : false}
+              helperText={allUsers.some(user => user === this.state.name) ? `Sorry, the name ${this.state.name} is already in use` : ''}
             />
           </DialogContent>
           <DialogActions>
@@ -80,6 +82,7 @@ class SelectProfile extends Component {
                   this.updateName('');
                 }}
                 color="primary"
+                disabled={allUsers.some(user => user === this.state.name) || this.state.name === '' ? true : false}
               >Add Profile
             </Button>
             </div>
