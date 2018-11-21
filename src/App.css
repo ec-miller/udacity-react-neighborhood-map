@@ -3,7 +3,7 @@
   left: 50%;
   transform: translate(-50%,-50%);
   position: absolute;
-  width: 45%;
+  width: 40%;
   min-height: 45%;
   max-height: 95%;
   background-color:  white;
@@ -177,7 +177,11 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   }
   .sidebarList {
     height: 55%;
-}
+  }
+  .modal {
+    width: 52%;
+    max-height: 90%;
+  }
 }
 
 /* responsive css for mobile devices */
@@ -190,7 +194,7 @@ div.clickMe span, div.clickMe div, div.clickMe div svg, div.clickMe path {
   }
   .modal {
     width: 70%;
-    max-height: 70%;
+    max-height: 80%;
   }
   .MobileHeader {
     position: relative;
