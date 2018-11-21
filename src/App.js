@@ -3,12 +3,11 @@ import Sidebar from './Sidebar.js';
 import ErrorBoundary from './ErrorBoundary.js'
 import Map from './Map.js';
 import MobileHeader from './MobileHeader.js';
+import SelectProfile from './SelectProfile.js';
 import NewTrip from './NewTrip.js';
 import EditTrip from './EditTrip.js';
 import { markersList } from './constants2.js';
 import './App.css';
-import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
 
 class App extends Component {
   state = {
@@ -25,7 +24,11 @@ class App extends Component {
     newTripEntry: false,
     editTripEntry: false
   }
-  //need to add localStorage for user, userSelected, and the Locations state object
+  
+  //init the app
+  componentWillMount = () => {
+    this.initState();
+  }
 
   initState = () => {
     const cachedTripData = localStorage.getItem('tripData');
@@ -49,7 +52,7 @@ class App extends Component {
     }
     const cachedAllUsers = localStorage.getItem('allUsers');
     if (cachedOtherUsers) {
-      this.setState({ cachedAllUsers: JSON.parse(cachedAllUsers) })
+      this.setState({ allUsers: JSON.parse(cachedAllUsers) })
     }
   }
 
@@ -70,8 +73,17 @@ class App extends Component {
 
   closeModal = () => this.setState({ userSelected: true });
 
-  componentWillMount = () => {
-    this.initState();
+  addUser = (user) => {
+    const tripData = JSON.parse(JSON.stringify(this.state.tripData));
+    tripData[user] = [];
+    console.log(this.state.allUsers)
+    const allUsers = this.state.allUsers;
+    allUsers.push(user)
+    console.log(allUsers)
+    this.setState({ tripData, allUsers });
+    localStorage.setItem('tripData', JSON.stringify(tripData));
+    localStorage.setItem('allUsers', JSON.stringify(allUsers));
+    this.selectUser(user);
   }
 
   //new trip entry
@@ -197,23 +209,13 @@ class App extends Component {
     // modal component to allow user selection
     return (
       <div className="App">
-        <Modal
-          open={!userSelected}
-          onBackdropClick={this.closeModal}
-        >
-          <div className='modal'>
-            <div className='button-container'>
-            <h3 className='button-title'>Select Your Profile</h3>
-            {this.state.allUsers.map(user => {
-              return <Button 
-              key={user}
-              className='button'
-              onClick={ () => this.selectUser(user) }
-              >{user}</Button>
-            })}
-            </div>
-          </div>
-        </Modal>
+        <SelectProfile
+        userSelected={userSelected}
+        closeModal={this.closeModal}
+        allUsers={allUsers}
+        selectUser={this.selectUser}
+        addUser={this.addUser}
+        />
         <NewTrip
           newTripEntry={newTripEntry}
           closeTripEntry={this.closeTripEntry}
