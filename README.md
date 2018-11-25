@@ -3,6 +3,12 @@
 
 This app is Project 7 in the Udacity Front-End Web Developer Nanodegree program. In this project we were tasked with creating an SPA in React that displays a map of an interesting neighborhood. The neighborhood I chose is Europe. Using the Google Maps Javascript API, I display a number of locations that I have visited in Europe. The app allows you to click on location markers to display images sourced via the Flickr API. A sidebar allows users to filter the list of locations and select from the filtered list. Enjoy exploring Europe!
 
+#Post-Nanodegree Enhancements
+- Multiple user profiles, ability to create a new user profile
+- Ability to add new trips to a profile, GeoCodes acquired via Google Maps GeoCode API
+- Ability to add and edit trip notes, delete trips
+- Local storage for a user's data
+
 ## How to Use
 
 ### Development
