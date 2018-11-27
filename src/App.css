@@ -104,7 +104,7 @@ span.MuiButton-label-73 span.MuiTouchRipple-root-63 {
   background-color: #222;
   padding: 20px;
   color: white;
-  height: 20%;
+  height: 22%;
   min-height: 153px;
 }
 
@@ -132,7 +132,7 @@ input {
 }
 
 .sidebarList {
-  height: 60%;
+  height: 58%;
   overflow: auto;
   background-color: white;
 }
